@@ -3819,7 +3819,7 @@ def main(file, args):
     if FILE_RESULT_CHART:
         print('Запись диаграммы ресурсов')
         real_dyn.SaveChartXML("chart.xml")
-
+    return real_dyn.QltList
     if PLOT_GANT:
         '''
         import plotly.figure_factory as ff

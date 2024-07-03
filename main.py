@@ -1,3 +1,4 @@
+import json
 import os
 import subprocess
 import click
@@ -13,8 +14,6 @@ from dyno import GrandSolver, get_variable, fill_template
 
 app = Flask(__name__)
 api = Api()
-
-
 
 #parser = reqparse.RequestParser()
 #parser.add_argument("name", type=str)
@@ -40,11 +39,11 @@ class Main(Resource):
         upload.save(file_path)
         # return "File successfully saved to '{0}'.".format(save_path)
         p = subprocess.run("python dyno.py " + file_path, shell=True)
-        if not p.returncode:
+        """if not p.returncode:
             return static_file('p_graph.html', root='./')
         else:
-            return "Код ошибки запуска модели " + str(p.returncode)
-        files = request.files
+            return "Код ошибки запуска модели " + str(p.returncode)"""
+        return json.dumps(p)
         #print(files.get('upload'))
         #return dyno.main(files.get('upload')[0])
 
