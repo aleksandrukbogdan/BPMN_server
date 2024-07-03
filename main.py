@@ -9,11 +9,11 @@ import requests
 
 
 import dyno
-from bottle import static_file
-from dyno import GrandSolver, get_variable, fill_template
+import settings
 
 app = Flask(__name__)
 api = Api()
+
 
 #parser = reqparse.RequestParser()
 #parser.add_argument("name", type=str)
@@ -38,16 +38,23 @@ class Main(Resource):
         file_path = "{path}/{file}".format(path=save_path, file=upload.filename)
         upload.save(file_path)
         # return "File successfully saved to '{0}'.".format(save_path)
-        p = subprocess.run("python dyno.py " + file_path, shell=True)
+        responseble = dyno.main(file_path, shell=True)
+        #p = subprocess.run("python dyno.py " + file_path, shell=True)
+
+        print(responseble)
         """if not p.returncode:
             return static_file('p_graph.html', root='./')
         else:
             return "Код ошибки запуска модели " + str(p.returncode)"""
-        return json.dumps(p)
+
+
         #print(files.get('upload'))
         #return dyno.main(files.get('upload')[0])
 
-
+    def init(a):
+        global d
+        d = a
+        print(d)
     def put(self, course_id):
         pass
 

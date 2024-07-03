@@ -104,6 +104,7 @@ buttonSaveXML.addEventListener('click', async function() {
     const url = URL.createObjectURL(blob);
     const downloadLink = document.getElementById('downloadLink');
     const downloadLink_server = document.getElementById('downloadLink-server');
+    downloadLink_server.onclick = server(blob);
     downloadLink.href = url;
     let reader = new FileReader();
     reader.readAsDataURL(blob);
@@ -114,51 +115,28 @@ buttonSaveXML.addEventListener('click', async function() {
     // downloadLink_server.href = blob;
     // Показываем модальное окно
     saveWindow.classList.add('show');
-    downloadLink_server.addEventListener('click', async function() {
-      /*const xhr = new XMLHttpRequest(); // создаем объект XMLHttpRequest
-      const formData = new FormData(); // создаем объект FormData для передачи файла
-      formData.append('upload', file_1); // добавляем файл в объект FormDat
-      xhr.open('POST', 'http://172.16.10.21:8081/upload'); // указываем метод и URL сервера, куда будет отправлен файл
-      xhr.send(formData); // отправляем запрос на сервер с помощью метода send()*/
 
-      var file_1 = new File([blob], 'file.bpmn');
-      var fd = new FormData();
-
-
-      fd.append('upload', blob, 'file.bpmn');
-      await $.ajax({
-          type: 'POST',
-          url: 'http://127.0.0.1:3000/api/',
-          data: fd,
-          processData: false,
-          contentType: false
-      }).done(function(data) {
-       console.log(data);
-});
-    });
   } catch (err) {
     console.log(err);
   }
+
 });
 // Обработчик нажатия на загрузку на сервер
-/*
-const upload = (blob) => {
-  fetch('http://172.16.10.21:8081/upload', { // Your POST endpoint
-    method: 'POST',
-    headers: {
-      // Content-Type may need to be completely **omitted**
-      // or you may need something
+async function server(blob){
+  //var file_1 = new File([blob], 'file.bpmn');
+  var fd = new FormData();
+  fd.append('upload', blob, 'file.bpmn');
+  await $.ajax({
+      type: 'POST',
+      url: 'http://127.0.0.1:3000/api/',
+      data: fd,
+      processData: false,
+      contentType: false
+  }).done(function(data) {
+   console.log(data);
+})
+}
 
-    },
-    body: blob // This is your file object
-  }).then(
-    response => response.json() // if the response is a JSON object
-  ).then(
-    success => console.log(success) // Handle the success response object
-  ).catch(
-    error => console.log(error) // Handle the error response object
-  );
-};*/
 
 
 // Закрытие модального окна при клике на фон

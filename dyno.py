@@ -46,7 +46,6 @@ import click  # CLI
 
 insp = {}
 i = 0
-
 # Для записи в csv приоритетов операций
 
 import os
@@ -237,6 +236,7 @@ class GrandSolver(object):
 
         # DOPS (PDA)
         self.Priorities_all = {}
+
 
     def read_xml(self, model_filename=None, model_str=None):
         """Создание модели по файлу XML.
@@ -3807,7 +3807,17 @@ def main(file, args):
                 for i in real_dyn.Schedule[(proc, op)]:
                     print("\t" + str(i['start']) + " -- " + str(i.get('stop')) + " : " + i.get('res', {
                         'Name': '--'}).Name + " @ " + str(i['intens']))
-    print(real_dyn.QltList)
+
+    #print(real_dyn.QltList.values())
+    #main.init(real_dyn.QltList)
+    #settings.d.update(real_dyn.QltList)
+    """obj = []
+    for i, val in real_dyn.QltList:
+        obj.append({i, val})
+    print(obj)"""
+    #d = real_dyn.QltList
+    #print(d)
+    return real_dyn.QltList
     if FILE_RESULT_GANT:
         print('Запись диаграммы Ганта')
         real_dyn.SaveGanttXML("result.xml")
@@ -3819,7 +3829,7 @@ def main(file, args):
     if FILE_RESULT_CHART:
         print('Запись диаграммы ресурсов')
         real_dyn.SaveChartXML("chart.xml")
-    return real_dyn.QltList
+
     if PLOT_GANT:
         '''
         import plotly.figure_factory as ff
