@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ltsm="http://litsam.ru" xmlns:tns="http://sourceforge.net/bpmn/definitions/_1491914526513" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yaoqiang="http://bpmn.sourceforge.net" id="_1491914526513" name="" targetNamespace="http://sourceforge.net/bpmn/definitions/_1491914526513" exporter="Camunda Modeler" exporterVersion="2.2.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <process id="PROCESS_1" processType="None" isClosed="false" isExecutable="true">
+    <extensionElements>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724" />
+      <yaoqiang:page background="#FFFFFF" horizontalCount="3" verticalCount="2" />
+      <ltsm:props task_id="_3" res_id="RS_4" availability_time="0" availability_value="0"/>
+      <ltsm:props task_id="_3" res_id="RS_4" availability_time="15" availability_value="1"/>
+      <ltsm:props task_id="_3" res_id="RS_4" availability_time="30" availability_value="0"/>
+    </extensionElements>
+    <startEvent id="_2" name="Start Event">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" whiteSpace="wrap" />
+      </extensionElements>
+      <outgoing>_4</outgoing>
+      <outputSet />
+    </startEvent>
+    <task id="_3" name="Общий входной поток">
+      <extensionElements>
+        <ltsm:props stream="0" volume="0" />
+        <ltsm:props availability_time="10" availability_value="1"/>
+        <ltsm:props availability_time="20" availability_value="0"/>
+        <ltsm:props availability_time="30" availability_value="1"/>
+        <ltsm:props availability_time="120" availability_value="0"/>
+        <ltsm:props availability_time="150" availability_value="1"/>
+      </extensionElements>
+      <incoming>_4</incoming>
+      <outgoing>_6</outgoing>
+      <performer id="_3_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_4" sourceRef="_2" targetRef="_3" />
+    <sequenceFlow id="_6" sourceRef="_3" targetRef="_5" />
+    <parallelGateway id="_5" name="Parallel Gateway" gatewayDirection="Diverging">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" />
+      </extensionElements>
+      <incoming>_6</incoming>
+      <outgoing>_11</outgoing>
+      <outgoing>_12</outgoing>
+      <outgoing>_13</outgoing>
+      <outgoing>_14</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="_11" sourceRef="_5" targetRef="_7" />
+    <sequenceFlow id="_12" sourceRef="_5" targetRef="_8" />
+    <sequenceFlow id="_13" sourceRef="_5" targetRef="_9" />
+    <sequenceFlow id="_14" sourceRef="_5" targetRef="_10" />
+    <task id="_7" name="Поток первого интервала">
+      <extensionElements>
+        <ltsm:props stream="42" volume="42" />
+        <ltsm:props availability_time="0" availability_value="0"/>
+        <ltsm:props availability_time="15" availability_value="1"/>
+      </extensionElements>
+      <incoming>_11</incoming>
+      <outgoing>_15</outgoing>
+      <performer id="_7_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+      <performer id="_7_RES_2">
+        <resourceRef>RS_2</resourceRef>
+
+      </performer>
+    </task>
+    <task id="_8" name="Поток второго интервала">
+      <extensionElements>
+        <ltsm:props stream="42" volume="42" />
+      </extensionElements>
+      <incoming>_12</incoming>
+      <outgoing>_16</outgoing>
+      <performer id="_8_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+      <performer id="_8_RES_3">
+        <resourceRef>RS_3</resourceRef>
+      </performer>
+    </task>
+    <task id="_9" name="Поток третьего интервала">
+      <extensionElements>
+        <ltsm:props stream="101" volume="101" />
+      </extensionElements>
+      <incoming>_13</incoming>
+      <outgoing>_17</outgoing>
+      <performer id="_9_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+      <performer id="_9_RES_4">
+        <resourceRef>RS_4</resourceRef>
+      </performer>
+    </task>
+    <task id="_10" name="Поток четвертого интервала">
+      <extensionElements>
+        <ltsm:props stream="84" volume="84" />
+      </extensionElements>
+      <incoming>_14</incoming>
+      <outgoing>_18</outgoing>
+      <performer id="_10_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+      <performer id="_10_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_15" sourceRef="_7" targetRef="_19" />
+    <sequenceFlow id="_16" sourceRef="_8" targetRef="_20" />
+    <sequenceFlow id="_17" sourceRef="_9" targetRef="_21" />
+    <sequenceFlow id="_18" sourceRef="_10" targetRef="_22" />
+    <task id="_19" name="Процесс (1)">
+      <extensionElements>
+        <ltsm:props stream="12,83" volume="12,83" />
+      </extensionElements>
+      <incoming>_15</incoming>
+      <outgoing>_30</outgoing>
+      <performer id="_19_RES_2">
+        <resourceRef>RS_2</resourceRef>
+      </performer>
+    </task>
+    <task id="_20" name="Процесс (2)">
+      <extensionElements>
+        <ltsm:props stream="12,83" volume="12,83" />
+      </extensionElements>
+      <incoming>_16</incoming>
+      <outgoing>_31</outgoing>
+      <performer id="_20_RES_3">
+        <resourceRef>RS_3</resourceRef>
+      </performer>
+    </task>
+    <parallelGateway id="_21" name="Parallel Gateway(2)" gatewayDirection="Diverging">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" />
+      </extensionElements>
+      <incoming>_17</incoming>
+      <outgoing>_23</outgoing>
+      <outgoing>_24</outgoing>
+    </parallelGateway>
+    <task id="_25" name="Процесс (3)">
+      <extensionElements>
+        <ltsm:props stream="30,84" volume="30,84" penalty_start="0" penalty_angle="15"/>
+      </extensionElements>
+      <incoming>_23</incoming>
+      <outgoing>_32</outgoing>
+      <performer id="_25_RES_4">
+        <resourceRef>RS_4</resourceRef>
+      </performer>
+    </task>
+    <task id="_26" name="Хранение">
+      <extensionElements>
+        <ltsm:props stream="0" volume="0" penalty_start="0" penalty_angle="10" />
+      </extensionElements>
+      <incoming>_24</incoming>
+      <outgoing>_27</outgoing>
+      <performer id="_26_RES_4">
+        <resourceRef>RS_4</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_23" sourceRef="_21" targetRef="_25" />
+    <sequenceFlow id="_24" sourceRef="_21" targetRef="_26" />
+    <sequenceFlow id="_27" sourceRef="_26" targetRef="_22" />
+    <sequenceFlow id="_28" sourceRef="_22" targetRef="_29" />
+    <parallelGateway id="_22" name="Parallel Gateway(3)" gatewayDirection="Converging">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" />
+      </extensionElements>
+      <incoming>_18</incoming>
+      <incoming>_27</incoming>
+      <outgoing>_28</outgoing>
+    </parallelGateway>
+    <task id="_29" name="Процесс (4)">
+      <extensionElements>
+        <ltsm:props stream="94,055" volume="94,055" />
+      </extensionElements>
+      <incoming>_28</incoming>
+      <outgoing>_33</outgoing>
+      <performer id="_29_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_30" sourceRef="_19" targetRef="_34" />
+    <sequenceFlow id="_31" sourceRef="_20" targetRef="_34" />
+    <sequenceFlow id="_32" sourceRef="_25" targetRef="_34" />
+    <sequenceFlow id="_33" sourceRef="_29" targetRef="_34" />
+    <parallelGateway id="_34" name="Parallel Gateway(4)" gatewayDirection="Converging">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" />
+      </extensionElements>
+      <incoming>_30</incoming>
+      <incoming>_31</incoming>
+      <incoming>_32</incoming>
+      <incoming>_33</incoming>
+      <outgoing>_35</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="_35" sourceRef="_34" targetRef="_36" />
+    <task id="_36" name="Общий выходной поток">
+      <extensionElements>
+        <ltsm:props stream="0" volume="0" />
+      </extensionElements>
+      <incoming>_35</incoming>
+      <outgoing>_37</outgoing>
+      <performer id="_36_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_37" sourceRef="_36" targetRef="_38" />
+    <endEvent id="_38" name="End Event">
+      <incoming>_37</incoming>
+      <inputSet />
+    </endEvent>
+  </process>
+  <resource id="RS_1" name="Основной исполитель">
+    <resourceParameter id="RS_1_P_1" name="threads" />
+    <resourceParameter id="RS_1_P_2" name="productivity" />
+    <resourceParameter id="RS_1_P_3" name="name" />
+    <extensionElements>
+      <ltsm:props availability_time="10" availability_value="1"/>
+      <ltsm:props availability_time="20" availability_value="0"/>
+      <ltsm:props availability_time="30" availability_value="1"/>
+      <ltsm:props availability_time="120" availability_value="0"/>
+      <ltsm:props availability_time="150" availability_value="1"/>
+    </extensionElements>
+  </resource>
+  <resource id="RS_2" name="Исполнитель первого интервала">
+    <resourceParameter id="RS_2_P_1" name="name" />
+    <resourceParameter id="RS_2_P_2" name="threads" />
+    <resourceParameter id="RS_2_P_3" name="productivity" />
+  </resource>
+  <resource id="RS_3" name="Исполнитель второго интервала">
+    <resourceParameter id="RS_3_P_1" name="name" />
+    <resourceParameter id="RS_3_P_2" name="threads" />
+    <resourceParameter id="RS_3_P_3" name="productivity" />
+  </resource>
+    <resource id="RS_4" name="Исполнитель третьего интервала">
+    <resourceParameter id="RS_4_P_1" name="name" />
+    <resourceParameter id="RS_4_P_2" name="threads" />
+    <resourceParameter id="RS_4_P_3" name="productivity" />
+  </resource>
+    <resource id="RS_5" name="Исполнитель четвертого интервала">
+    <resourceParameter id="RS_5_P_1" name="name" />
+    <resourceParameter id="RS_5_P_2" name="threads" />
+    <resourceParameter id="RS_5_P_3" name="productivity" />
+  </resource>
+  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-PROCESS_1" name="Untitled Diagram" resolution="96">
+    <bpmndi:BPMNPlane bpmnElement="PROCESS_1">
+      ###ФИГУРЫ###
+      <bpmndi:BPMNShape id="Yaoqiang-_3" bpmnElement="_3">
+        <dc:Bounds x="80" y="800" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_7" bpmnElement="_7">
+        <dc:Bounds x="400" y="500" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_8" bpmnElement="_8">
+        <dc:Bounds x="400" y="700" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_9" bpmnElement="_9">
+        <dc:Bounds x="400" y="900" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_10" bpmnElement="_10">
+        <dc:Bounds x="400" y="1100" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_19" bpmnElement="_19">
+        <dc:Bounds x="850" y="500" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_20" bpmnElement="_20">
+        <dc:Bounds x="850" y="700" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_25" bpmnElement="_25">
+        <dc:Bounds x="800" y="850" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_26" bpmnElement="_26">
+        <dc:Bounds x="650" y="950" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_29" bpmnElement="_29">
+        <dc:Bounds x="850" y="1100" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_36" bpmnElement="_36">
+        <dc:Bounds x="1200" y="800" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      ###ФИГУРЫ###
+      ###старт и конец###
+      <bpmndi:BPMNShape id="Yaoqiang-_2" bpmnElement="_2">
+        <dc:Bounds x="4" y="810" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4" y="850" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_38" bpmnElement="_38">
+        <dc:Bounds x="1450" y="810" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1480" y="850" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      ###старт и конец###
+      ###дуги###
+      <bpmndi:BPMNEdge id="Yaoqiang-_4" bpmnElement="_4">
+        <di:waypoint x="43.77371993328519" y="830" />
+        <di:waypoint x="79" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_6" bpmnElement="_6">
+        <di:waypoint x="200" y="830" />
+        <di:waypoint x="250" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_11" bpmnElement="_11">
+        <di:waypoint x="290" y="830" />
+        <di:waypoint x="400" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_12" bpmnElement="_12">
+        <di:waypoint x="290" y="830" />
+        <di:waypoint x="400" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_13" bpmnElement="_13">
+        <di:waypoint x="290" y="830" />
+        <di:waypoint x="400" y="920" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_14" bpmnElement="_14">
+        <di:waypoint x="290" y="830" />
+        <di:waypoint x="400" y="1120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_15" bpmnElement="_15">
+        <di:waypoint x="520" y="530" />
+        <di:waypoint x="850" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_16" bpmnElement="_16">
+        <di:waypoint x="520" y="730" />
+        <di:waypoint x="850" y="730" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_17" bpmnElement="_17">
+        <di:waypoint x="520" y="932" />
+        <di:waypoint x="555" y="932" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_18" bpmnElement="_18">
+        <di:waypoint x="520" y="1120" />
+        <di:waypoint x="650" y="1120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_23" bpmnElement="_23">
+        <di:waypoint x="589" y="934" />
+        <di:waypoint x="800" y="875" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_24" bpmnElement="_24">
+        <di:waypoint x="589" y="934" />
+        <di:waypoint x="651" y="975" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_27" bpmnElement="_27">
+        <di:waypoint x="700" y="1010" />
+        <di:waypoint x="670" y="1100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_28" bpmnElement="_28">
+        <di:waypoint x="690" y="1120" />
+        <di:waypoint x="850" y="1120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_30" bpmnElement="_30">
+        <di:waypoint x="970" y="530" />
+        <di:waypoint x="1050" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_31" bpmnElement="_31">
+        <di:waypoint x="970" y="730" />
+        <di:waypoint x="1050" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_32" bpmnElement="_32">
+        <di:waypoint x="920" y="875" />
+        <di:waypoint x="1050" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_33" bpmnElement="_33">
+        <di:waypoint x="970" y="1125" />
+        <di:waypoint x="1050" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Yaoqiang-_35" bpmnElement="_35">
+        <di:waypoint x="1090" y="830" />
+        <di:waypoint x="1200" y="830" />
+      </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Yaoqiang-_37" bpmnElement="_37">
+        <di:waypoint x="1320" y="830" />
+        <di:waypoint x="1450" y="830" />
+      </bpmndi:BPMNEdge>
+      ###дуги###
+      ###объединения###
+      <bpmndi:BPMNShape id="Yaoqiang-_5" bpmnElement="_5" isMarkerVisible="true">
+        <dc:Bounds x="250" y="810" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="255" y="850" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_21" bpmnElement="_21" isMarkerVisible="true">
+        <dc:Bounds x="550" y="915" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="565" y="960" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Yaoqiang-_22" bpmnElement="_22" isMarkerVisible="true">
+        <dc:Bounds x="650" y="1100" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="670" y="1150" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Yaoqiang-_34" bpmnElement="_34" isMarkerVisible="true">
+        <dc:Bounds x="1050" y="810" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1060" y="860" width="6" height="22.49" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      ###объединения###
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
