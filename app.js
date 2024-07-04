@@ -90,11 +90,11 @@ buttonImportXML.addEventListener('change', function(file_input) {
 })
 
 // save file button
-const saveWindow = document.getElementById('save-window');
 
 // Обработчик клика по кнопке "Сохранить"
 buttonSaveXML.addEventListener('click', async function() {
   try {
+    const saveWindow = document.getElementById('save-window');
     const { xml } = await bpmnModeler.saveXML();
     console.log(xml);
     // Создаем Blob объект с типом text/xml
@@ -103,8 +103,6 @@ buttonSaveXML.addEventListener('click', async function() {
     // Создаем ссылку для скачивания файла
     const url = URL.createObjectURL(blob);
     const downloadLink = document.getElementById('downloadLink');
-    const downloadLink_server = document.getElementById('downloadLink-server');
-    downloadLink_server.onclick = server(blob);
     downloadLink.href = url;
     let reader = new FileReader();
     reader.readAsDataURL(blob);
@@ -121,21 +119,32 @@ buttonSaveXML.addEventListener('click', async function() {
   }
 
 });
+const downloadLink_server = document.getElementById('downloadLink-server');
 // Обработчик нажатия на загрузку на сервер
-async function server(blob){
-  //var file_1 = new File([blob], 'file.bpmn');
+downloadLink_server.addEventListener("click", async function() {
+  const saveWindow = document.getElementById('save-window');
+  const { xml } = await bpmnModeler.saveXML();
+  console.log(xml);
+  // Создаем Blob объект с типом text/xml
+  const blob = new Blob([xml], { type: 'application/bpmn' });
+  console.log(blob, "nen")
+  // Создаем ссылку для скачивания файла
+  const url = URL.createObjectURL(blob);
   var fd = new FormData();
   fd.append('upload', blob, 'file.bpmn');
   await $.ajax({
       type: 'POST',
-      url: 'http://127.0.0.1:3000/api/',
+      url: 'http://localhost:3000/api/',
+      headers: {"Access-Control-Allow-Origin:": "*" },
       data: fd,
       processData: false,
       contentType: false
   }).done(function(data) {
    console.log(data);
 })
-}
+})
+
+
 
 
 

@@ -460,8 +460,8 @@ class GrandSolver(object):
 
             for opelement in procelement.iterfind("mdl:task", nsmap):
                 templ = opelement.find("mdl:extensionElements", nsmap)
-                ttt = templ.find("ltsm:props", nsmap)
-                ttt = templ.getchildren()
+                #ttt = templ.find("ltsm:props", nsmap)
+                #ttt = templ.getchildren()
                 # templ_uuid = templ.find("ctss:template_id", nsmap)
                 templ_uuid = None
 
@@ -3808,7 +3808,11 @@ def main(file, args):
                     print("\t" + str(i['start']) + " -- " + str(i.get('stop')) + " : " + i.get('res', {
                         'Name': '--'}).Name + " @ " + str(i['intens']))
 
-    #print(real_dyn.QltList.values())
+    print(real_dyn.QltList)
+    import json
+    with open('temp.json', 'w') as fp:
+        json.dump(real_dyn.QltList, fp)
+    #print(json.dumps((real_dyn.QltList)))
     #main.init(real_dyn.QltList)
     #settings.d.update(real_dyn.QltList)
     """obj = []

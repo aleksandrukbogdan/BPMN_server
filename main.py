@@ -6,6 +6,8 @@ from flask import Flask
 from flask import request
 from flask_restful import Api, Resource, reqparse
 import requests
+from flask_cors import CORS
+
 
 
 import dyno
@@ -13,7 +15,7 @@ import settings
 
 app = Flask(__name__)
 api = Api()
-
+CORS(app)
 
 #parser = reqparse.RequestParser()
 #parser.add_argument("name", type=str)
@@ -38,14 +40,14 @@ class Main(Resource):
         file_path = "{path}/{file}".format(path=save_path, file=upload.filename)
         upload.save(file_path)
         # return "File successfully saved to '{0}'.".format(save_path)
-        responseble = dyno.main(file_path, shell=True)
-        #p = subprocess.run("python dyno.py " + file_path, shell=True)
-
-        print(responseble)
-        """if not p.returncode:
-            return static_file('p_graph.html', root='./')
+        #responseble = dyno.main(file_path, shell=True)
+        p = subprocess.run("python dyno.py " + file_path, shell=True)
+        #print(responseble)
+        if not p.returncode:
+            with open('temp.json', 'r') as f:
+                return f.readline()
         else:
-            return "Код ошибки запуска модели " + str(p.returncode)"""
+            return "Код ошибки запуска модели " + str(p.returncode)
 
 
         #print(files.get('upload'))
@@ -63,7 +65,7 @@ api.add_resource(Main, "/api/")
 api.init_app(app)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=3000)
+    app.run(debug=True, host="localhost", port=3000)
 
 
 
