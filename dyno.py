@@ -3808,10 +3808,7 @@ def main(file, args):
                     print("\t" + str(i['start']) + " -- " + str(i.get('stop')) + " : " + i.get('res', {
                         'Name': '--'}).Name + " @ " + str(i['intens']))
 
-    print(real_dyn.QltList)
-    import json
-    with open('temp.json', 'w') as fp:
-        json.dump(real_dyn.QltList, fp)
+
     #print(json.dumps((real_dyn.QltList)))
     #main.init(real_dyn.QltList)
     #settings.d.update(real_dyn.QltList)
@@ -3821,7 +3818,8 @@ def main(file, args):
     print(obj)"""
     #d = real_dyn.QltList
     #print(d)
-    return real_dyn.QltList
+
+    #return real_dyn.QltList
     if FILE_RESULT_GANT:
         print('Запись диаграммы Ганта')
         real_dyn.SaveGanttXML("result.xml")
@@ -3833,7 +3831,9 @@ def main(file, args):
     if FILE_RESULT_CHART:
         print('Запись диаграммы ресурсов')
         real_dyn.SaveChartXML("chart.xml")
-
+    import json
+    with open('temp.json', 'w') as fp:
+        json.dump(real_dyn.QltList, fp)
     if PLOT_GANT:
         '''
         import plotly.figure_factory as ff
@@ -3861,7 +3861,7 @@ def main(file, args):
 
 
         # import plotly
-        import plotly.figure_factory as ff
+        """import plotly.figure_factory as ff
         import plotly.express as px
         from datetime import datetime, timedelta
         import random
@@ -4189,7 +4189,7 @@ $('#example tbody').on('click', 'tr', function () {
             f.write('</div>')
 
             f.write('</body>')
-            f.write('</html>')
+            f.write('</html>')"""
             #f.close()
         # import os
         # os.system("start p_graph.html")

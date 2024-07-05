@@ -1,17 +1,12 @@
-import json
 import os
 import subprocess
-import click
 from flask import Flask
 from flask import request
 from flask_restful import Api, Resource, reqparse
-import requests
 from flask_cors import CORS
 
 
 
-import dyno
-import settings
 
 app = Flask(__name__)
 api = Api()
