@@ -1,3 +1,5 @@
+import ast
+import json
 import os
 import subprocess
 from flask import Flask
@@ -40,7 +42,8 @@ class Main(Resource):
         #print(responseble)
         if not p.returncode:
             with open('temp.json', 'r') as f:
-                return f.readline()
+                json_data = ast.literal_eval(f.readline())
+                return json_data
         else:
             return "Код ошибки запуска модели " + str(p.returncode)
 

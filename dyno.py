@@ -3146,6 +3146,7 @@ class GrandSolver(object):
         outFile = open(outfilename, 'wb')
         doc.write(outFile, xml_declaration=True, encoding='utf-8')
 
+
         """
             <data>
                <item id="1">
@@ -3834,6 +3835,7 @@ def main(file, args):
     import json
     with open('temp.json', 'w') as fp:
         json.dump(real_dyn.QltList, fp)
+        #print(real_dyn.SaveChartXML())
     if PLOT_GANT:
         '''
         import plotly.figure_factory as ff
@@ -3859,9 +3861,8 @@ def main(file, args):
         #pprint(real_dyn.Schedule)
         '''
 
-
         # import plotly
-        """import plotly.figure_factory as ff
+        import plotly.figure_factory as ff
         import plotly.express as px
         from datetime import datetime, timedelta
         import random
@@ -3901,66 +3902,67 @@ def main(file, args):
 
         # таблица показателей
         from itertools import zip_longest
-        head = '''
-<!-- JQuery -->
-<script src="gantt/js/jquery-3.5.1.js"></script>
-<!-- Popper.js first, then Bootstrap JS -->
-<script src="gantt/js/popper.min.js"></script>
-<!-- Bootstrap 5 -->
-<link href="gantt/css/bootstrap.min.css" rel="stylesheet">
-<script src="gantt/js/bootstrap.bundle.min.js"></script>
-<!-- Bootstrap 5 icons -->
-<link rel="stylesheet" href="gantt/css/bootstrap-icons.css">
 
-<!-- DataTables -->
-<script src="gantt/js/jquery.dataTables.min.js"</script>
-<script src="gantt/js/dataTables.bootstrap5.min.js"</script>
-<link rel="stylesheet" type="text/css" href="gantt/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="gantt/css/dataTables.bootstrap5.min.css">
-        '''
+        head = '''
+    <!-- JQuery -->
+    <script src="gantt/js/jquery-3.5.1.js"></script>
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="gantt/js/popper.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <link href="gantt/css/bootstrap.min.css" rel="stylesheet">
+    <script src="gantt/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 icons -->
+    <link rel="stylesheet" href="gantt/css/bootstrap-icons.css">
+
+    <!-- DataTables -->
+    <script src="gantt/js/jquery.dataTables.min.js"</script>
+    <script src="gantt/js/dataTables.bootstrap5.min.js"</script>
+    <link rel="stylesheet" type="text/css" href="gantt/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="gantt/css/dataTables.bootstrap5.min.css">
+            '''
 
         head += '''<script type="text/javascript" class="init">$(document).ready(function () {
-    var table = $('#example').DataTable({
-    language: {
+        var table = $('#example').DataTable({
+        language: {
 
-                    "processing": "Подождите...",
-                    "search": "Поиск:",
-                    "lengthMenu": "Показать _MENU_ записей",
-                    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                    "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                    "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                    "infoPostFix": "",
-                    "loadingRecords": "Загрузка записей...",
-                    "zeroRecords": "Записи отсутствуют.",
-                    "emptyTable": "В таблице отсутствуют данные",
-                    "paginate": {
-                        "first": "Первая",
-                        "previous": "Предыдущая",
-                        "next": "Следующая",
-                        "last": "Последняя"
-                    },
-                    "aria": {
-                        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                        "sortDescending": ": активировать для сортировки столбца по убыванию"
-                    },
-                    "select": {
-                        "rows": {
-                            "_": "Выбрано записей: %d",
-                            "0": "Кликните по записи для выбора",
-                            "1": "Выбрана одна запись"
+                        "processing": "Подождите...",
+                        "search": "Поиск:",
+                        "lengthMenu": "Показать _MENU_ записей",
+                        "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                        "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                        "infoPostFix": "",
+                        "loadingRecords": "Загрузка записей...",
+                        "zeroRecords": "Записи отсутствуют.",
+                        "emptyTable": "В таблице отсутствуют данные",
+                        "paginate": {
+                            "first": "Первая",
+                            "previous": "Предыдущая",
+                            "next": "Следующая",
+                            "last": "Последняя"
+                        },
+                        "aria": {
+                            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                            "sortDescending": ": активировать для сортировки столбца по убыванию"
+                        },
+                        "select": {
+                            "rows": {
+                                "_": "Выбрано записей: %d",
+                                "0": "Кликните по записи для выбора",
+                                "1": "Выбрана одна запись"
+                            }
                         }
-                    }
 
-    },
-});
+        },
+    });
 
-$('#example tbody').on('click', 'tr', function () {
-    var data = table.row( this ).data();
-    alert( 'You clicked on '+data[0]+' row' );
-} );
+    $('#example tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        alert( 'You clicked on '+data[0]+' row' );
+    } );
 
-});
-</script>'''
+    });
+    </script>'''
 
         table = '<table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">'
         thead = '<thead><tr>'
@@ -4146,12 +4148,12 @@ $('#example tbody').on('click', 'tr', function () {
                 fig2.update_layout(xaxis_range=[min_x2, max_x2])
                 fig2.update_layout(legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.9))
 
-                from plotly.subplots import make_subplots
+                '''from plotly.subplots import make_subplots
                 fig12 = make_subplots(rows=2, cols=1, shared_xaxes=True)
                 fig12.append_trace(fig1._data_objs, row=1, col=1)
                 fig12.append_trace(fig2._data_objs, row=2, col=1)
                 fig12.update_layout(height=600, width=600, title_text="Stacked Subplots")
-                fig12.show()
+                fig12.show()'''
 
                 # fig1.show() #Стандартный показ в браузере (требуется интернет) - нестабильный вариант
 
@@ -4189,11 +4191,10 @@ $('#example tbody').on('click', 'tr', function () {
             f.write('</div>')
 
             f.write('</body>')
-            f.write('</html>')"""
-            #f.close()
+            f.write('</html>')
+
         # import os
         # os.system("start p_graph.html")
-
 
 if __name__ == '__main__':
     ya = read_yaml("env.yaml")
