@@ -3833,33 +3833,17 @@ def main(file, args):
         print('Запись диаграммы ресурсов')
         real_dyn.SaveChartXML("chart.xml")
     import json
+    outputJson = {
+        'QltList': real_dyn.QltList,
+        'WorkTask': [],
+        'WorkResource': []
+    }
+    print(outputJson)
+    '''
     with open('temp.json', 'w') as fp:
         json.dump(real_dyn.QltList, fp)
-        #print(real_dyn.SaveChartXML())
+        #print(real_dyn.SaveChartXML())'''
     if PLOT_GANT:
-        '''
-        import plotly.figure_factory as ff
-
-        df = [dict(Task="Job-1", Start='2017-01-01', Finish='2017-02-02', Resource='Complete'),
-            dict(Task="Job-1", Start='2017-02-15', Finish='2017-03-15', Resource='Incomplete'),
-            dict(Task="Job-2", Start='2017-01-17', Finish='2017-02-17', Resource='Not Started'),
-            dict(Task="Job-2", Start='2017-01-17', Finish='2017-02-17', Resource='Complete'),
-            dict(Task="Job-3", Start='2017-03-10', Finish='2017-03-20', Resource='Not Started'),
-            dict(Task="Job-3", Start='2017-04-01', Finish='2017-04-20', Resource='Not Started'),
-            dict(Task="Job-3", Start='2017-05-18', Finish='2017-06-18', Resource='Not Started'),
-            dict(Task="Job-4", Start='2017-01-14', Finish='2017-03-14', Resource='Complete')]
-
-        colors = {'Not Started': 'rgb(220, 0, 0)',
-                'Incomplete': (1, 0.9, 0.16),
-                'Complete': 'rgb(0, 255, 100)'}
-
-        fig = ff.create_gantt(df, colors=colors, index_col='Resource', show_colorbar=True,
-                            group_tasks=True)
-        fig.show()
-
-        #from pprint import pprint
-        #pprint(real_dyn.Schedule)
-        '''
 
         # import plotly
         import plotly.figure_factory as ff
@@ -4050,7 +4034,6 @@ def main(file, args):
                 if it != best_iteration:  # временно выводим только лучшую итерацию
                     pass  # continue
                 real_dyn.BuildSchedule(it)  # it = iteration
-
                 # Отрисовка графиков
                 # now = datetime.today().strftime('%Y-%m-%d %H:%M:')
                 now = datetime.min
@@ -4074,10 +4057,14 @@ def main(file, args):
                                                                                     1].ID in real_dyn.Priorities_all else 0
                     # print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
                     # df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Intens = intens))
+                
                     df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Opprior=opprior))
+                    
 
                 df.sort(key=lambda x: x["Task"], reverse=True)
-
+                
+                
+                
                 ######
                 r = lambda: random.randint(0, 255)
                 col = (r(), r(), r())
@@ -4116,6 +4103,13 @@ def main(file, args):
                 # plot figure
                 fig1['layout']['annotations'] = annots
 
+                grafparam = {
+                    'id': it,
+                    'data': df,
+                    'colors': colors,
+                }
+                outputJson["WorkTask"].append(grafparam)
+
                 # ГРАФИК ПО РЕСУРСАМ - ВЫДЕЛЕНИЕ ЦВЕТОВ ПО ОПЕРАЦИИ
                 df = []
                 for ProcOp, IntResStartStop in real_dyn.Schedule.items():
@@ -4131,6 +4125,7 @@ def main(file, args):
                     df.append(dict(Task=resource, Start=start, Finish=finish, Resource=task))
 
                 df.sort(key=lambda x: x["Task"], reverse=False)
+                
 
                 ######
                 r = lambda: random.randint(0, 255)
@@ -4147,26 +4142,14 @@ def main(file, args):
                 min_x2 = min([i['Start'] for i in df])
                 fig2.update_layout(xaxis_range=[min_x2, max_x2])
                 fig2.update_layout(legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.9))
+                grafparam = {
+                    'id': it,
+                    'data': df,
+                    'colors': colors
+                }
+                outputJson["WorkResource"].append(grafparam)
 
-                '''from plotly.subplots import make_subplots
-                fig12 = make_subplots(rows=2, cols=1, shared_xaxes=True)
-                fig12.append_trace(fig1._data_objs, row=1, col=1)
-                fig12.append_trace(fig2._data_objs, row=2, col=1)
-                fig12.update_layout(height=600, width=600, title_text="Stacked Subplots")
-                fig12.show()'''
 
-                # fig1.show() #Стандартный показ в браузере (требуется интернет) - нестабильный вариант
-
-                ## офлайн визуализация в браузере - стабильнывй вариант
-                ## требуется gantt.html + папака js
-                # import json
-                # graphJSON1 = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
-                # with open('gantt/gantt_1.JSON', 'w') as file:
-                #    file.write('var graphs = {};'.format(graphJSON1))
-
-                # graphJSON2 = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
-                # with open('gantt/gantt_2.JSON', 'w') as file:
-                #    file.write('var graphs = {};'.format(graphJSON2))
 
                 is_or_not_active = 'show active' if it == best_iteration else ''
                 aria_selected = 'true' if it == best_iteration else 'false'
@@ -4192,7 +4175,9 @@ def main(file, args):
 
             f.write('</body>')
             f.write('</html>')
-
+            print(outputJson)
+            with open('temp.json', 'w') as fp:
+                json.dump(outputJson, fp)
         # import os
         # os.system("start p_graph.html")
 
