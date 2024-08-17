@@ -42,6 +42,8 @@ import pulp
 from pulp import LpProblem, LpMaximize, LpVariable, LpInteger, LpContinuous, lpDot, LpStatus, value
 import click  # CLI
 
+
+
 # from constants import *     # Загрузка констант из переменных среды или по умолчанию
 
 insp = {}
