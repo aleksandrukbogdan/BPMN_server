@@ -420,15 +420,15 @@ class GrandSolver(object):
 
             ##!~ Palich
             res_availability = []
-            res_avail_element_times = reselement.xpath("mdl:extensionElements/ltsm:props/@availability_time",
+            res_avail_element_times = reselement.xpath("mdl:extensionElements/ltsm:availability/@availability_time",
                                                        namespaces=nsmap) or None
             res_avail_element_times = res_avail_element_times or reselement.xpath(
-                "mdl:extensionElements/ltsm:props[@name='availability_time']/@value", namespaces=nsmap)
+                "mdl:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
             res_avail_element_times = res_avail_element_times or None
-            res_avail_element_values = reselement.xpath("mdl:extensionElements/ltsm:props/@availability_value",
+            res_avail_element_values = reselement.xpath("mdl:extensionElements/ltsm:availability/@availability_value",
                                                         namespaces=nsmap) or None
             res_avail_element_values = res_avail_element_values or reselement.xpath(
-                "mdl:extensionElements/ltsm:props[@name='availability_value']/@value", namespaces=nsmap)
+                "mdl:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
             res_avail_element_values = res_avail_element_values or None
             # print(res_avail_element_times)
             # print(res_avail_element_values)
@@ -489,15 +489,15 @@ class GrandSolver(object):
 
                 ##!~ Palich
                 op_availability = []
-                avail_element_times = opelement.xpath("mdl:extensionElements/ltsm:props/@availability_time",
+                avail_element_times = opelement.xpath("mdl:extensionElements/ltsm:availability/@availability_time",
                                                       namespaces=nsmap) or None
                 avail_element_times = avail_element_times or opelement.xpath(
-                    "mdl:extensionElements/ltsm:props[@name='availability_time']/@value", namespaces=nsmap)
+                    "mdl:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
                 avail_element_times = avail_element_times or None
-                avail_element_values = opelement.xpath("mdl:extensionElements/ltsm:props/@availability_value",
+                avail_element_values = opelement.xpath("mdl:extensionElements/ltsm:availability/@availability_value",
                                                        namespaces=nsmap) or None
                 avail_element_values = avail_element_values or opelement.xpath(
-                    "mdl:extensionElements/ltsm:props[@name='availability_value']/@value", namespaces=nsmap)
+                    "mdl:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
                 avail_element_values = avail_element_values or None
                 # print(avail_element_times)
                 # print(avail_element_values)
@@ -1966,7 +1966,7 @@ class GrandSolver(object):
                     tf = self.time
                     print("\t" * debug_tab, "✅ Все процессы завершены, план выполнен за", tf)
                 else:
-                    if empty_loops > 3000:
+                    if empty_loops > 7000:
                         print("⚠️ Много пустых итераций. Прерываем")
                         tf = self.time
                     else:
@@ -3547,8 +3547,11 @@ def fill_template(dyn, number):
             # требуется гарантировать уникальность идентификатора операции во всей модели
             new_id = uuid1()
             # new_id =  "op_" + str(randint(1, 100))
-            real_op = real_proc.add_operation("ИЗД_" + str(sec) + "_" + op.Name, op.A, op.AP,
+            
+            real_op = real_proc.add_operation(op.Name, op.A, op.AP,
                                               new_id)  # , op.template_id)
+            #real_op = real_proc.add_operation("ИЗД_" + str(sec) + "_" + op.Name, op.A, op.AP,
+            #                                  new_id)  # , op.template_id)
             protos[op.ID] = str(new_id)
 
             # клонирование зон видимости
@@ -3838,7 +3841,8 @@ def main(file, args):
     outputJson = {
         'QltList': real_dyn.QltList,
         'WorkTask': [],
-        'WorkResource': []
+        'WorkResource': [],
+        'ALL_OUTPUT': []
     }
     print(outputJson)
     '''
@@ -4039,6 +4043,7 @@ def main(file, args):
                 # Отрисовка графиков
                 # now = datetime.today().strftime('%Y-%m-%d %H:%M:')
                 now = datetime.min
+
                 # now = datetime.today()
                 # ГРАФИК ПО ОПЕРАЦИЯМ - ВЫДЕЛЕНИЕ ЦВЕТОВ ПО РЕСУРСУ
                 df = []
@@ -4114,21 +4119,47 @@ def main(file, args):
 
                 # ГРАФИК ПО РЕСУРСАМ - ВЫДЕЛЕНИЕ ЦВЕТОВ ПО ОПЕРАЦИИ
                 df = []
+                print(real_dyn.Schedule.items())
+                dataALL = {
+                        'id': it,
+                        'data': [],
+                    }
                 for ProcOp, IntResStartStop in real_dyn.Schedule.items():
+                    #print(IntResStartStop)
+                    
                     proc, oper = ProcOp
+                    #print(oper.Name, oper.A, oper.AP, oper.X, oper.XP)
+                    #print(proc.Name, proc.OpList, proc.ID)
                     task = str(oper.Name)
                     # убираем пустые операции из расписания (added by Palich)
                     if not IntResStartStop:
                         continue
                     start = (now + timedelta(0, IntResStartStop[0]['start'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19)
+                    #print(datetime.now())
+                    #print(IntResStartStop[0]['res'])
+                    #print((datetime.now() + timedelta(0, IntResStartStop[0]['start'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19))
                     finish = (now + timedelta(0, IntResStartStop[0]['stop'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19)
                     resource = str(IntResStartStop[0]['res'].Name)
                     # print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
+                    dataOutput = {
+                        'oper_Name': str(oper.Name),
+                        'oper_A': str(oper.A),
+                        'oper_AP': str(oper.AP),
+                        'oper_X': str(oper.X),
+                        'oper_XP': str(oper.XP),
+                        'res': {
+                            'start': IntResStartStop[0]['start'],
+                            'stop': IntResStartStop[0]['stop'],
+                            'intens': IntResStartStop[0]['intens'],
+                            'Name': IntResStartStop[0]['res'].Name,
+                        } 
+                    }
+                    dataALL["data"].append(dataOutput)
                     df.append(dict(Task=resource, Start=start, Finish=finish, Resource=task))
 
                 df.sort(key=lambda x: x["Task"], reverse=False)
                 
-
+                outputJson['ALL_OUTPUT'].append(dataALL)
                 ######
                 r = lambda: random.randint(0, 255)
                 colors = ['#%02X%02X%02X' % (r(), r(), r())]
