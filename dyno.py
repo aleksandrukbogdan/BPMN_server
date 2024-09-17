@@ -14,11 +14,11 @@ Refactored on 17.11.2022
 # TODO: ПРИНИМАТЬ РЕШЕНИЕ НЕ ПО ГОЛОМУ РАНДОМУ, А ПО НАПРАВЛЕННОМУ ПОИСКУ
 
 # !!!TODO: В ИТОГЕ: ОСТАВИТЬ ВСЕ КАК ЕСТЬ, НО ИЗМЕНИТЬ РАНДОМ НА НАПРАВЛЕННЫЙ РАНДОМ И ДОБАВИТЬ ОТСЕЧКУ ПО ВРЕМЕНИ РАСЧЕТОВ
-# ПРОДАКШН: SIMPLE_DESICION (ОТСЕЧКА + КРУТОЙ РАНДОМ)
-# ИССЛЕДОВАНИЯ: НЕ SIMPLE_DESICION
-# ВЫТАЩИТЬ ПРИОРИТЕТ ОПЕРАЦИИ ИЗ PRIORITY И ЮЗАТЬ В КАЧЕСТВЕ ВЕСА
-# ПЕРВАЯ РАНДОМНАЯ ОПЕРАЦИЯ - ЖАДНАЯ. А ПОТОМ РАНДОМИТЬ С ВЕСАМИ. ЕСЛИ БУДЕТ ЛУЧШЕ, ТО ОК
-# ВЕСА - ИЗ СОВОКУПНОГО ПОКАЗАТЕЛЯ
+    # ПРОДАКШН: SIMPLE_DESICION (ОТСЕЧКА + КРУТОЙ РАНДОМ)
+    # ИССЛЕДОВАНИЯ: НЕ SIMPLE_DESICION
+    # ВЫТАЩИТЬ ПРИОРИТЕТ ОПЕРАЦИИ ИЗ PRIORITY И ЮЗАТЬ В КАЧЕСТВЕ ВЕСА
+    # ПЕРВАЯ РАНДОМНАЯ ОПЕРАЦИЯ - ЖАДНАЯ. А ПОТОМ РАНДОМИТЬ С ВЕСАМИ. ЕСЛИ БУДЕТ ЛУЧШЕ, ТО ОК
+    # ВЕСА - ИЗ СОВОКУПНОГО ПОКАЗАТЕЛЯ
 
 import os
 import sys
@@ -40,31 +40,30 @@ import networkx as nx
 from lxml import etree  # http://www.lfd.uci.edu/~gohlke/pythonlibs/
 import pulp
 from pulp import LpProblem, LpMaximize, LpVariable, LpInteger, LpContinuous, lpDot, LpStatus, value
-import click  # CLI
-
-
-
-# from constants import *     # Загрузка констант из переменных среды или по умолчанию
+import click                # CLI
+#from constants import *     # Загрузка констант из переменных среды или по умолчанию
 
 insp = {}
 i = 0
+
 # Для записи в csv приоритетов операций
 
 import os
 import shutil
 
+
 QltTemplate = {
-    "J0": [1],
-    "J1": [0],
-    "J2": [0.5],
-    "J3": [0],
-    "J4": [0],
-    "J5": [0],
-    "J6": [0],
-    "J7": [0.5],
-    "J8": [0],
-    "J9": [0]
-}
+            "J0": [1],
+            "J1": [0],
+            "J2": [0.5],
+            "J3": [0],
+            "J4": [0],
+            "J5": [0],
+            "J6": [0],
+            "J7": [0.5],
+            "J8": [0],
+            "J9": [0]
+        }
 
 dir_name_ID = 'zakharov_ID'
 template_file = os.path.join(dir_name_ID, 'Qlt.json')
@@ -72,6 +71,7 @@ if not os.path.exists(dir_name_ID):
     os.makedirs(dir_name_ID)
     with open(template_file, 'w') as f:
         json.dump(QltTemplate, f)
+
 
 # папка перезаписывается
 dir_name = 'zakharov_RESULT'
@@ -81,9 +81,9 @@ os.makedirs(dir_name)
 
 index_ham = 0
 ham_file = open(os.path.join(dir_name, 'hamiltonian_1.csv'), 'w')
-csv_data = [['time', 'Job', 'Res', 'C', 'solution']]
+csv_data = [['time', 'Job','Res','C', 'solution']]
 time_pred = 1
-ham_file.close()
+
 
 # Константы (для тестирования)
 DEBUG = False
@@ -118,6 +118,7 @@ HAMILTONIAN_THINNING: 2
 # отрисовка диаграмм Ганта
 PLOT_GANT = True
 
+
 # DEPRECATED флаг завершения операции
 NOT_COMPLETED = 0  # не завершена
 TIME_COMPLETED = 1  # время вышло, поток ещё не обработан
@@ -137,6 +138,7 @@ RES_PROCESSING = -1  # операция [может быть] запущена �
 RES_REJECTED = -2  # выполнение операции отклонено ресурсом
 # операция [может быть] запущена на выполнение, но полностью занимает ресурс
 RES_TO_FULL = -3
+
 
 
 class GrandSolver(object):
@@ -170,6 +172,7 @@ class GrandSolver(object):
         # self.penalty - Матрица штрафных функций операций: [op_id] = [(startTime, penalty)]
         # - штраф за выполнение операции op_id с момента времени startTime и значением. Ступенчатая функция
         self.penalty = {}
+
 
         # self.res_availability - Матрица потенциала доступности ресурса: [res_id] = [(startTime, 0/1), ...]
         # - доступность ресурса res_id в промежуток времени от startTime до следующего значения
@@ -214,6 +217,7 @@ class GrandSolver(object):
         self.stream_conditions = dict()
         self.resource_conditions = dict()
 
+
         # Начальные условия сопряжённой системы
         self.operation_init_conditions = dict()
         self.stream_init_conditions = dict()
@@ -236,9 +240,8 @@ class GrandSolver(object):
 
         self.debug_vars = {}
 
-        # DOPS (PDA)
+        #DOPS (PDA)
         self.Priorities_all = {}
-
 
     def read_xml(self, model_filename=None, model_str=None):
         """Создание модели по файлу XML.
@@ -247,7 +250,7 @@ class GrandSolver(object):
         """
 
         dyn = GrandSolver(os.path.split(model_filename)[-1] if model_filename else "Неизвестный xml")
-
+        
         if model_filename:
             tree = etree.parse(model_filename)
             root = tree.getroot()
@@ -301,15 +304,15 @@ class GrandSolver(object):
             # previousop = None
             for opelement in procelement.iterfind("operation"):
                 new_operation = tempproc.add_operation(opelement.findtext("name"),
-                                                       float(opelement.findtext(
-                                                           "volume").replace(',', '.')),
-                                                       opelement.findtext(
-                                                           "stream"),
-                                                       opelement.findtext("id"),
-                                                       opelement.findtext("id"),
-                                                       # opelement.findtext("template_id"),
-                                                       opelement.findtext("x"),
-                                                       opelement.findtext("y"))
+                                                    float(opelement.findtext(
+                                                        "volume").replace(',', '.')),
+                                                    opelement.findtext(
+                                                        "stream"),
+                                                    opelement.findtext("id"),
+                                                    opelement.findtext("id"),
+                                                    # opelement.findtext("template_id"),
+                                                    opelement.findtext("x"),
+                                                    opelement.findtext("y"))
 
                 # копируем матрицу потенциала доступности из процесса в операцию
                 # dyn.availability[new_operation.ID] = list(process_availability)
@@ -330,7 +333,7 @@ class GrandSolver(object):
                 penalty_element = opelement.find("penalty")
                 if penalty_element is not None:
                     op_penalty = ((float(penalty_element.findtext("start").replace(',', '.')),
-                                   float(penalty_element.findtext("angle").replace(',', '.')), 0))
+                                float(penalty_element.findtext("angle").replace(',', '.')), 0))
                     dyn.penalty[new_operation.ID] = op_penalty
 
             # построение графа операций
@@ -338,9 +341,9 @@ class GrandSolver(object):
             if graph_element is not None:
                 for edge in procelement.find("graph").iter("edge"):
                     tempproc.add_link(edge.attrib["from"], edge.attrib["to"],
-                                      edge.findtext("fwd") if edge.find(
-                                          "fwd") is not None else 1,
-                                      edge.findtext("rev") if edge.find("rev") is not None else 1)
+                                    edge.findtext("fwd") if edge.find(
+                                        "fwd") is not None else 1,
+                                    edge.findtext("rev") if edge.find("rev") is not None else 1)
 
         # построение списка кластеров и ресурсов
         # if dyn.p: dyn.p.send("INF: Загрузка ресурсов")
@@ -348,12 +351,12 @@ class GrandSolver(object):
             tempclust = dyn.AddClust(clustelement.findtext("name"))
             for reselement in clustelement.iter("resource"):
                 tempres = tempclust.AddRes(reselement.find("name").text,
-                                           float(reselement.findtext(
-                                               "power").replace(',', '.')),
-                                           reselement.findtext(
-                                               "capacity"), reselement.findtext("price"),
-                                           reselement.findtext("id"),
-                                           reselement.findtext("template_id"))
+                                        float(reselement.findtext(
+                                            "power").replace(',', '.')),
+                                        reselement.findtext(
+                                            "capacity"), reselement.findtext("price"),
+                                        reselement.findtext("id"),
+                                        reselement.findtext("template_id"))
                 avail_element = reselement.find("availability")
                 res_availability = []
                 if avail_element is not None:
@@ -370,20 +373,15 @@ class GrandSolver(object):
                 dyn.ProductivityMatrix[(opprod.attrib["ID"], resprod.attrib["ID"])] = float(
                     opprod.findtext("value"))
 
-        # PAVLOV: + number of threads from XML (max of jobs list)
+        #PAVLOV: + number of threads from XML (max of jobs list)
         dyn.Threads = dyn.Threads or len(dyn.ProductivityMatrix)
-
+        
         return dyn
 
     def read_bpmn(self, bpmn_file):
-
         if not os.path.isfile(bpmn_file):
-            print("это не файл!!!!! падаю с ошибкой в def read_bpmn")
-            if os.path.exists(bpmn_file):
-                print("Path exists")
-            else:
-                print("Path does not exist")
             exit(1)
+
         dyn = GrandSolver(os.path.split(bpmn_file)[-1])
 
         if DEBUG:
@@ -393,10 +391,20 @@ class GrandSolver(object):
         root = tree.getroot()
 
         # get its namespace map, excluding default namespace
+        #"mdl": "http://www.omg.org/spec/BPMN/20100524/MODEL",
+        '''nsmap = {
+            'xmlns':"http://www.omg.org/spec/BPMN/20100524/MODEL", 
+            "ltsm": "http://litsam.ru", 
+            "bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI", 
+            "dc": "http://www.omg.org/spec/DD/20100524/DC"
+        }'''
         nsmap = {
-            "mdl": "http://www.omg.org/spec/BPMN/20100524/MODEL",
-            "ltsm": "http://litsam.ru",
-            "bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI",
+            'xmlns': "http://www.omg.org/spec/BPMN/20100524/MODEL",
+            'ltsm': "https://litsam.ru",
+            'ltsm:props': "https://litsam.ru",
+            'bpmndi': "http://www.omg.org/spec/BPMN/20100524/DI",
+            'omgdc' : "http://www.omg.org/spec/DD/20100524/DC",
+            'omgdi': "http://www.omg.org/spec/DD/20100524/DI",
             "dc": "http://www.omg.org/spec/DD/20100524/DC"
         }
 
@@ -406,52 +414,44 @@ class GrandSolver(object):
             print("Добавление ресурсов")
 
         clstr = dyn.AddClust("Пул ресурсов")
-        for reselement in root.iterfind("mdl:resource", nsmap):
-            res_threads = reselement.xpath("mdl:extensionElements/ltsm:props[@name='threads']/@value",
-                                           namespaces=nsmap) or [None]
-            res_price = reselement.xpath("mdl:extensionElements/ltsm:props[@name='price']/@value",
-                                         namespaces=nsmap) or [None]
-            res_productivity = reselement.xpath("mdl:extensionElements/ltsm:props[@name='productivity']/@value",
-                                                namespaces=nsmap) or [None]
-            tempres = clstr.AddRes(reselement.attrib.get("name"), res_productivity[0], res_threads[0], res_price[0],
-                                   reselement.attrib.get("id"), uuid1())
+        for reselement in root.iterfind("xmlns:resource", nsmap):
+            res_threads = reselement.xpath("xmlns:extensionElements/ltsm:props[@name='threads']/@value", namespaces=nsmap) or [None]
+            res_price = reselement.xpath("xmlns:extensionElements/ltsm:props[@name='price']/@value", namespaces=nsmap) or [None]
+            res_productivity = reselement.xpath("xmlns:extensionElements/ltsm:props[@name='productivity']/@value", namespaces=nsmap) or [None]
+            tempres = clstr.AddRes(reselement.attrib.get("name"), res_productivity[0], res_threads[0], res_price[0], reselement.attrib.get("id"), uuid1())
             if DEBUG:
                 print("\t" + tempres.Name)
 
             ##!~ Palich
             res_availability = []
-            res_avail_element_times = reselement.xpath("mdl:extensionElements/ltsm:availability/@availability_time",
-                                                       namespaces=nsmap) or None
-            res_avail_element_times = res_avail_element_times or reselement.xpath(
-                "mdl:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
+            res_avail_element_times = reselement.xpath("xmlns:extensionElements/ltsm:availability/@availability_time", namespaces=nsmap) or None
+            res_avail_element_times = res_avail_element_times or reselement.xpath("xmlns:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
             res_avail_element_times = res_avail_element_times or None
-            res_avail_element_values = reselement.xpath("mdl:extensionElements/ltsm:availability/@availability_value",
-                                                        namespaces=nsmap) or None
-            res_avail_element_values = res_avail_element_values or reselement.xpath(
-                "mdl:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
+            res_avail_element_values = reselement.xpath("xmlns:extensionElements/ltsm:availability/@availability_value", namespaces=nsmap) or None
+            res_avail_element_values = res_avail_element_values or reselement.xpath("xmlns:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
             res_avail_element_values = res_avail_element_values or None
-            # print(res_avail_element_times)
-            # print(res_avail_element_values)
+            #print(res_avail_element_times)
+            #print(res_avail_element_values)
 
             if res_avail_element_times is not None and res_avail_element_values is not None:
                 for time_val in zip(res_avail_element_times, res_avail_element_values):
-                    # print(time_val)
+                    #print(time_val)
                     res_availability.append(
                         (float(time_val[0]), int(time_val[1])))
                 res_availability.insert(0, (0, 0))
             dyn.res_availability[tempres.ID] = res_availability[:]
-            # print(dyn.res_availability)
+            #print(dyn.res_availability)
             ##!~ /Palich
             # if self.p: self.p.send("INF: Загрузка процесса " + str(tempproc.ID))
         # построение списка процессов
-        # exit()
+        #exit()
         print("Добавление процессов")
 
         # ОСТАЛОСЬ в bpmn_reader.py
         # global temp_coords
         # temp_coords.clear()
-
-        for procelement in root.iterfind("mdl:process", nsmap):
+        
+        for procelement in root.iterfind("xmlns:process", nsmap):
             tempproc = dyn.AddProc(procelement.attrib.get("id"))
             print("\t" + tempproc.Name)
             # if self.p: self.p.send("INF: Загрузка процесса " + str(tempproc.ID))
@@ -460,64 +460,52 @@ class GrandSolver(object):
 
             print("\tДобавление операций")
 
-            for opelement in procelement.iterfind("mdl:task", nsmap):
-                templ = opelement.find("mdl:extensionElements", nsmap)
+            for opelement in procelement.iterfind("xmlns:task", nsmap):
+                #templ = opelement.find("xmlns:extensionElements", nsmap)
                 #ttt = templ.find("ltsm:props", nsmap)
                 #ttt = templ.getchildren()
                 # templ_uuid = templ.find("ctss:template_id", nsmap)
                 templ_uuid = None
 
                 # Оба способа чтения (added by Palich)
-                op_volume = opelement.xpath("mdl:extensionElements/ltsm:props/@volume", namespaces=nsmap) or None
-                op_volume = op_volume or opelement.xpath("mdl:extensionElements/ltsm:props[@name='volume']/@value",
-                                                         namespaces=nsmap)
+                op_volume = opelement.xpath("xmlns:extensionElements/ltsm:props/@volume", namespaces=nsmap) or None
+                op_volume = op_volume or opelement.xpath("xmlns:extensionElements/ltsm:props[@name='volume']/@value", namespaces=nsmap)
                 op_volume = op_volume or ["0"]
-                op_stream = opelement.xpath("mdl:extensionElements/ltsm:props/@stream", namespaces=nsmap) or None
-                op_stream = op_stream or opelement.xpath("mdl:extensionElements/ltsm:props[@name='stream']/@value",
-                                                         namespaces=nsmap)
+                op_stream = opelement.xpath("xmlns:extensionElements/ltsm:props/@stream", namespaces=nsmap) or None
+                op_stream = op_stream or opelement.xpath("xmlns:extensionElements/ltsm:props[@name='stream']/@value", namespaces=nsmap)
                 op_stream = op_stream or ["0"]
-                op_penalty_start = opelement.xpath("mdl:extensionElements/ltsm:props/@penalty_start",
-                                                   namespaces=nsmap) or None
-                op_penalty_start = op_penalty_start or opelement.xpath(
-                    "mdl:extensionElements/ltsm:props[@name='penalty_start']/@value", namespaces=nsmap)
+                op_penalty_start = opelement.xpath("xmlns:extensionElements/ltsm:props/@penalty_start", namespaces=nsmap) or None
+                op_penalty_start = op_penalty_start or opelement.xpath("xmlns:extensionElements/ltsm:props[@name='penalty_start']/@value", namespaces=nsmap)
                 op_penalty_start = op_penalty_start or ["0"]
-                op_penalty_angle = opelement.xpath("mdl:extensionElements/ltsm:props/@penalty_angle",
-                                                   namespaces=nsmap) or None
-                op_penalty_angle = op_penalty_angle or opelement.xpath(
-                    "mdl:extensionElements/ltsm:props[@name='penalty_angle']/@value", namespaces=nsmap)
+                op_penalty_angle = opelement.xpath("xmlns:extensionElements/ltsm:props/@penalty_angle", namespaces=nsmap) or None
+                op_penalty_angle = op_penalty_angle or opelement.xpath("xmlns:extensionElements/ltsm:props[@name='penalty_angle']/@value", namespaces=nsmap)
                 op_penalty_angle = op_penalty_angle or ["0"]
 
                 ##!~ Palich
                 op_availability = []
-                avail_element_times = opelement.xpath("mdl:extensionElements/ltsm:availability/@availability_time",
-                                                      namespaces=nsmap) or None
-                avail_element_times = avail_element_times or opelement.xpath(
-                    "mdl:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
+                avail_element_times = opelement.xpath("xmlns:extensionElements/ltsm:availability/@availability_time", namespaces=nsmap) or None
+                avail_element_times = avail_element_times or opelement.xpath("xmlns:extensionElements/ltsm:availability[@name='availability_time']/@value", namespaces=nsmap)
                 avail_element_times = avail_element_times or None
-                avail_element_values = opelement.xpath("mdl:extensionElements/ltsm:availability/@availability_value",
-                                                       namespaces=nsmap) or None
-                avail_element_values = avail_element_values or opelement.xpath(
-                    "mdl:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
+                avail_element_values = opelement.xpath("xmlns:extensionElements/ltsm:availability/@availability_value", namespaces=nsmap) or None
+                avail_element_values = avail_element_values or opelement.xpath("xmlns:extensionElements/ltsm:availability[@name='availability_value']/@value", namespaces=nsmap)
                 avail_element_values = avail_element_values or None
-                # print(avail_element_times)
-                # print(avail_element_values)
+                #print(avail_element_times)
+                #print(avail_element_values)
 
                 if avail_element_times is not None and avail_element_values is not None:
                     for time_val in zip(avail_element_times, avail_element_values):
-                        # print(time_val)
+                        #print(time_val)
                         op_availability.append(
                             (float(time_val[0]), int(time_val[1])))
                     op_availability.insert(0, (0, 0))
                 ##!~ /Palich
 
-                # op_volume = opelement.xpath("mdl:extensionElements/ltsm:props[@name='volume']/@value", namespaces=nsmap) or [""]
-                # op_stream = opelement.xpath("mdl:extensionElements/ltsm:props[@name='stream']/@value", namespaces=nsmap) or [""]
-
+                # op_volume = opelement.xpath("xmlns:extensionElements/ltsm:props[@name='volume']/@value", namespaces=nsmap) or [""]
+                # op_stream = opelement.xpath("xmlns:extensionElements/ltsm:props[@name='stream']/@value", namespaces=nsmap) or [""]
+                
                 for dc in root.iterfind("bpmndi:BPMNDiagram", nsmap):
-                    op_x = dc.xpath("bpmndi:BPMNPlane/bpmndi:BPMNShape[@bpmnElement='" + opelement.attrib.get(
-                        "id") + "']/dc:Bounds/@x", namespaces=nsmap)
-                    op_y = dc.xpath("bpmndi:BPMNPlane/bpmndi:BPMNShape[@bpmnElement='" + opelement.attrib.get(
-                        "id") + "']/dc:Bounds/@y", namespaces=nsmap)
+                    op_x = dc.xpath("bpmndi:BPMNPlane/bpmndi:BPMNShape[@bpmnElement='" + opelement.attrib.get("id") + "']/dc:Bounds/@x", namespaces=nsmap)
+                    op_y = dc.xpath("bpmndi:BPMNPlane/bpmndi:BPMNShape[@bpmnElement='" + opelement.attrib.get("id") + "']/dc:Bounds/@y", namespaces=nsmap)
                     # temp_coords[opelement.attrib.get("id")] = {"x": op_x and op_x[0], "y": op_y and op_y[0]}
 
                 # идентификаторы операций генерируются в UUID виде, если не были заданы
@@ -527,33 +515,34 @@ class GrandSolver(object):
                 if DEBUG:
                     print("\t\t" + tempop.ID, tempop.Name, tempop.A, tempop.AP, end="")
                 if DEBUG:
-                    if opelement.find("mdl:performer", nsmap) is None:
+                    if opelement.find("xmlns:performer", nsmap) is None:
                         print(" нет исполнителя", end=" ")
                     else:
                         print(" выполняется на:", end=" ")
-
-                # формирование матрицы penalty
-                dyn.penalty[tempop.ID] = (
-                (float(op_penalty_start[0].replace(',', '.')), (float(op_penalty_angle[0].replace(',', '.'))), 0))
-                # формирование матрицы availability
+                
+                #формирование матрицы penalty
+                dyn.penalty[tempop.ID] = ((float(op_penalty_start[0].replace(',', '.')), (float(op_penalty_angle[0].replace(',', '.'))), 0))
+                #формирование матрицы availability
                 dyn.availability[tempop.ID] = op_availability[:]
-                # print(dyn.availability)
-
+                #print(dyn.availability)
+                
                 # формирование матрицы продуктивности
                 # изменено значение по умолчанию: если есть указание ресурса "в короткой записи", то считать продуктивность за 1.0
                 # иначе зачем вообще ссылка на ресурс
-                for performerelement in opelement.iterfind("mdl:performer", nsmap):
-                    dyn.ProductivityMatrix[tempop.ID, performerelement.find("mdl:resourceRef", nsmap).text] = \
-                        float((performerelement.xpath("mdl:resourceParameterBinding/mdl:formalExpression/text()",
-                                                      namespaces=nsmap) or [1])[0])
+                for performerelement in opelement.iterfind("xmlns:performer", nsmap):
+                    dyn.ProductivityMatrix[tempop.ID, performerelement.find("xmlns:resourceRef", nsmap).text] = \
+                        float((performerelement.xpath("xmlns:resourceParameterBinding/xmlns:formalExpression/text()", namespaces=nsmap) or [1])[0])
                     if DEBUG:
-                        print(performerelement.find("mdl:resourceRef", nsmap).text, end=" ")
+                        print(performerelement.find("xmlns:resourceRef", nsmap).text, end=" ")
                 if DEBUG:
                     print()
+            if DEBUG:
+                from pprint import pprint
+                pprint(dyn.ProductivityMatrix)
 
-            evnt = procelement.find("mdl:startEvent", nsmap)
+            evnt = procelement.find("xmlns:startEvent", nsmap)
             start_event = evnt.attrib.get("id")
-            evnt = procelement.find("mdl:endEvent", nsmap)
+            evnt = procelement.find("xmlns:endEvent", nsmap)
             end_event = evnt.attrib.get("id")
 
             # добавление связей в процесс
@@ -563,7 +552,7 @@ class GrandSolver(object):
             # прямые связи операций
             print("\t\tпрямые связи")
             lnks = dict()
-            for link in procelement.iterfind("mdl:sequenceFlow", nsmap):
+            for link in procelement.iterfind("xmlns:sequenceFlow", nsmap):
                 # если связываются операции, которые числятся в списке реальных операций модели,
                 # то связываем их непосредственно
                 legal_op_list = [op[1].ID for op in dyn.op_iter()]
@@ -572,22 +561,20 @@ class GrandSolver(object):
                     if DEBUG:
                         print("\t\t\t" + link.attrib.get("sourceRef") + " - " + link.attrib.get("targetRef"))
                 # иначе готовимся к альтернативным связям
-                elif link.attrib.get("sourceRef") not in [start_event, end_event] and link.attrib.get(
-                        "targetRef") not in [start_event, end_event]:
-                    lnks[link.attrib.get("id")] = {'src': link.attrib.get("sourceRef"),
-                                                   'tgt': link.attrib.get("targetRef")}
+                elif link.attrib.get("sourceRef") not in [start_event, end_event] and link.attrib.get("targetRef") not in [start_event, end_event]:
+                    lnks[link.attrib.get("id")] = {'src': link.attrib.get("sourceRef"), 'tgt': link.attrib.get("targetRef")}
 
             # Рассматриваем gateways и строим связи между операциями, исключая их
             # связи типа И
             print("\t\tсвязи типа И")
             pg = dict()
-            for pargat in procelement.iterfind("mdl:parallelGateway", nsmap):
+            for pargat in procelement.iterfind("xmlns:parallelGateway", nsmap):
                 if pargat.attrib.get("gatewayDirection") == 'Diverging':
-                    src_op = lnks[pargat.find("mdl:incoming", nsmap).text].get('src')
+                    src_op = lnks[pargat.find("xmlns:incoming", nsmap).text].get('src')
                     if DEBUG:
                         print("\t\t\t" + src_op, end=" -> ")
                     grp = 1
-                    for outl in pargat.iterfind("mdl:outgoing", nsmap):
+                    for outl in pargat.iterfind("xmlns:outgoing", nsmap):
                         # связи с разным grp считаются как "И"
                         tempproc.add_link(src_op, lnks[outl.text].get("tgt"), fwd_group=grp)
                         grp += 1
@@ -596,9 +583,9 @@ class GrandSolver(object):
                     if DEBUG:
                         print()
                 if pargat.attrib.get("gatewayDirection") == 'Converging':
-                    dst_op = lnks[pargat.find("mdl:outgoing", nsmap).text].get('tgt')
+                    dst_op = lnks[pargat.find("xmlns:outgoing", nsmap).text].get('tgt')
                     grp = 1
-                    for inpl in pargat.iterfind("mdl:incoming", nsmap):
+                    for inpl in pargat.iterfind("xmlns:incoming", nsmap):
                         tempproc.add_link(lnks[inpl.text].get("src"), dst_op, rev_group=grp)
                         grp += 1
                         if DEBUG:
@@ -607,15 +594,15 @@ class GrandSolver(object):
             # связи типа ИЛИ
             print("\t\tсвязи типа ИЛИ")
             eg = dict()
-            for exgat in procelement.iterfind("mdl:exclusiveGateway", nsmap):
+            for exgat in procelement.iterfind("xmlns:exclusiveGateway", nsmap):
                 if exgat.attrib.get("gatewayDirection") == 'Diverging':
-                    src_op = exgat.find("mdl:incoming", nsmap).text
+                    src_op = exgat.find("xmlns:incoming", nsmap).text
                     if src_op in lnks:
                         src_op = lnks[src_op].get('src')
                         if DEBUG:
                             print("\t\t\t" + src_op, end=" -> ")
 
-                        for outl in exgat.iterfind("mdl:outgoing", nsmap):
+                        for outl in exgat.iterfind("xmlns:outgoing", nsmap):
                             tempproc.add_link(src_op, lnks[outl.text].get("tgt"))
                             if DEBUG:
                                 print(lnks[outl.text].get("tgt"), end=", ")
@@ -623,17 +610,18 @@ class GrandSolver(object):
                             print()
 
                 if exgat.attrib.get("gatewayDirection") == 'Converging':
-                    dst_op = exgat.find("mdl:outgoing", nsmap).text
+                    dst_op = exgat.find("xmlns:outgoing", nsmap).text
                     if dst_op in lnks:
                         dst_op = lnks[dst_op].get('tgt')
                         if DEBUG:
                             print("\t\t\t", end="")
-                        for inpl in exgat.iterfind("mdl:incoming", nsmap):
+                        for inpl in exgat.iterfind("xmlns:incoming", nsmap):
                             tempproc.add_link(lnks[inpl.text].get("src"), dst_op)
                             if DEBUG:
                                 print(lnks[inpl.text].get("src"), end=", ")
                         if DEBUG:
                             print(" -> " + dst_op)
+        #exit()
         # возвращаем сформированную по BPMN-файлу модель
         return dyn
 
@@ -833,8 +821,8 @@ class GrandSolver(object):
 
                 # Если операция выполняется за пределами директивного срока - оштрафовать её
                 if op_exec_flag and len(self.penalty.get(n, [])) != 0 and t >= self.penalty[n][0]:
-                    # PDA: заменен неправильный механизм оштрафования операции по вревышению директивного срока (штрафуем на величину angle: fine, который идет в показатель J4 становится равным angle)
-                    # self.penalty[n] = self.penalty[n][1]
+                    #PDA: заменен неправильный механизм оштрафования операции по вревышению директивного срока (штрафуем на величину angle: fine, который идет в показатель J4 становится равным angle)
+                    #self.penalty[n] = self.penalty[n][1]
                     self.penalty[n] = (self.penalty[n][0], self.penalty[n][1], self.penalty[n][1])
                 # Основная модель: сумма коэффициентов по предшественникам + сумма коэффициентов по параллельным
 
@@ -930,7 +918,7 @@ class GrandSolver(object):
 
                 if NORMALIZE_LOG_ANGLE and (summa_pred + summa_parallel) > 1:
                     self.OpPriorMatrix[n] = self.OpPriorMatrix.get(n, self.operation_init_conditions.get(n, 0)) + \
-                                            log10(summa_pred + summa_parallel)
+                                                  log10(summa_pred + summa_parallel)
                     if DEBUG_NORMALIZE:
                         print("Нормализовано 𝜓º", self.OpPriorMatrix.get(n, self.operation_init_conditions.get(n, 0)) +
                               summa_pred + summa_parallel, self.OpPriorMatrix[n])
@@ -954,30 +942,30 @@ class GrandSolver(object):
                         # если нужно компенсировать уход в отрицательную область, то использовать эту строку:
                         # sum_stream = max(2, sum_stream - (self.OpPriorMatrix[succ_op_id] if
                         sum_stream = (sum_stream +
-                                      # (self.OpPriorMatrix[succ_op_id] if
-                                      #             self.timetable[len(self.timetable) - 1].get(
-                                      #                 (t, succ_op_id), (-1, -1))[0] == res.ID else 0)
-                                      (1 if res.ID == self.timetable[-1].get((t, succ_op_id), (-1, -1))[0] else 0) *
-                                      # включаем единицу, если предыдущая работа выполняется в текущий момент времени
-                                      # и прибавляем текущей работе приоритет предыдущей
-                                      (
-                                          # основной приоритет * epsilon * theta
-                                          # epsilon и theta гарантировано равны 1, так как включено управление
-                                              self.OpPriorMatrix.get(succ_op_id,
-                                                                     self.operation_init_conditions.get(succ_op_id,
-                                                                                                        0)) +
-                                              # ресурсный приоритет
-                                              self.ResPriorMatrix.get(res.ID,
-                                                                      self.resource_init_conditions.get(res.ID, 0)) +
-                                              # TODO добавить матрицы eta, q
-                                              #  eta - q +
-                                              # потоковый приоритет * макс. производительность
-                                              self.StreamPriorMatrix.get(succ_op_id,
-                                                                         self.stream_init_conditions.get(succ_op_id,
-                                                                                                         0)) *
-                                              self.get_productivity(succ_op_id, res.ID)
-                                      )
-                                      )
+                                        # (self.OpPriorMatrix[succ_op_id] if
+                                        #             self.timetable[len(self.timetable) - 1].get(
+                                        #                 (t, succ_op_id), (-1, -1))[0] == res.ID else 0)
+                                        (1 if res.ID == self.timetable[-1].get((t, succ_op_id), (-1, -1))[0] else 0) *
+                                        # включаем единицу, если предыдущая работа выполняется в текущий момент времени
+                                        # и прибавляем текущей работе приоритет предыдущей
+                                        (
+                                            # основной приоритет * epsilon * theta
+                                            # epsilon и theta гарантировано равны 1, так как включено управление
+                                                self.OpPriorMatrix.get(succ_op_id,
+                                                                       self.operation_init_conditions.get(succ_op_id,
+                                                                                                          0)) +
+                                                # ресурсный приоритет
+                                                self.ResPriorMatrix.get(res.ID,
+                                                                        self.resource_init_conditions.get(res.ID, 0)) +
+                                                # TODO добавить матрицы eta, q
+                                                #  eta - q +
+                                                # потоковый приоритет * макс. производительность
+                                                self.StreamPriorMatrix.get(succ_op_id,
+                                                                           self.stream_init_conditions.get(succ_op_id,
+                                                                                                           0)) *
+                                                self.get_productivity(succ_op_id, res.ID)
+                                        )
+                                        )
 
                 # sum начинаются с 0, прибавляем предыдущее значение
                 if NORMALIZE_LOG_ANGLE and (self.StreamPriorMatrix.get(n, self.stream_init_conditions.get(n, 0)) - \
@@ -1017,6 +1005,7 @@ class GrandSolver(object):
             self.ResPriorMatrix[res.ID] = self.ResPriorMatrix.get(res.ID, self.resource_conditions.get(res.ID, 0))
             if DEBUG_L2:
                 print("𝜓ᴾ[" + res.Name + "]:", self.ResPriorMatrix[res.ID], end=", ")
+
 
     def integrate(self, ts=0.0, tf=float('inf'), options=None):
         """Проход интегратора по интервалу планирования с заданным алгоритмом поиска решения.
@@ -1093,8 +1082,10 @@ class GrandSolver(object):
                         # Составляем массив сетов, в котором всё наоборот: на нулевом месте значения rev, а на первом id операций.
                         # (val, key) for (key, val) in {p: proc.graph.edges[p, n]['rev'] for p in proc.graph.predecessors(n)}.items())
 
+
                         # Сортируем по значению rev так, чтобы одинаковые номера групп шли последовательно
                         # sorted((val, key) for (key, val) in {p: proc.graph.edges[p, n]['rev'] for p in proc.graph.predecessors(n)}.items()), lambda x: x[0])
+
 
                         # Пакуем id предшественников в группы и помещаем в словарь.
                         # Теперь у нас ключ - это номер группы, а значение - массив id предшественников в этой группе.
@@ -1133,7 +1124,9 @@ class GrandSolver(object):
                         # То есть, если все предшественники выполнились - можем запускать в работу рассматриваемую операцию.
 
                         logic = dict((key, [(0 if proc.get_op(gr[1]).Status == OP_FLOW_COMPLETED or
-                                                  proc.get_op(gr[1]).Status == OP_COMPLETED else 1) for gr
+                                                  proc.get_op(gr[1]).Status == OP_COMPLETED
+                                                  #or (proc.get_op(gr[1]).Status == OP_EXEC and candidate_operation.A > 0)   # PAVLOV: пытаемся разрешить операцию когда предшественники в процессе выполнения
+                                                  else 1) for gr
                                             in g]) for (key, g) in groupby(sorted((val, key) for (key, val) in
                                                                                   {p: proc.graph.edges[p, n]['rev'] for
                                                                                    p
@@ -1229,7 +1222,7 @@ class GrandSolver(object):
                     #         continue
 
                     res = self.get_clust_res(res_id)[1]  # получаем пару (cluster, resource) и выбираем resource
-
+                    
                     # Исключаем не заданную максимальную производительность из расчетов (added by Palich)
                     if res.MaxIntense:
                         intens = min(res.MaxIntense, self.get_productivity(op_id, res_id))
@@ -1358,7 +1351,7 @@ class GrandSolver(object):
             """Решатель, оптимизирующий с помощью модуля PuLP https://projects.coin-or.org/PuLP"""
 
             # Create the 'prob' variable to contain the problem data
-            prob = LpProblem(r"Задача максимизации Гамильтониана".replace(' ', '_'), LpMaximize)
+            prob = LpProblem(r"Задача максимизации Гамильтониана".replace(' ','_'), LpMaximize)
             # количество управляющих воздействий: 0/1 - для каждой связки операции и ресурса
             m = len(OpFront) * len(ResFront)
 
@@ -1458,7 +1451,7 @@ class GrandSolver(object):
                 # Ограничения
                 b = []
                 # создание вектора b, в котором выставлены единицы у управлений операций и ресурсов из фронта
-
+                
                 # PAVLOV: 2.1.7 (1)
                 for (j, op_id) in enumerate(OpFront):
                     # x + x + x + x + x + x + x + x + x + x + x + x
@@ -1471,9 +1464,8 @@ class GrandSolver(object):
                     for i in range((j + 1) * len(ResFront), len(OpFront) * len(ResFront)): b.append(0)
                     op = self.get_proc_op(op_id)[1]
                     # сумма управлений для каждой операции по всем ресурсам не более 1
-                    prob += lpDot(x, b) <= 1, r"Ограничение на параллельное выполнение операции " + op.Name + "_" + str(
-                        op.ID)
-                    # /PAVLOV: 2.1.7 (1)
+                    prob += lpDot(x, b) <= 1, r"Ограничение на параллельное выполнение операции " + op.Name + "_" + str(op.ID)  
+                # /PAVLOV: 2.1.7 (1)
 
                 # PAVLOV: 2.1.7. (2)
                 for (j, res_id) in enumerate(ResFront):
@@ -1487,14 +1479,10 @@ class GrandSolver(object):
 
                     res = self.get_clust_res(res_id)[1]
                     # сумма управлений по всем операциям для каждого ресурса не более максимальной производительности
-                    prob += lpDot(x,
-                                  b) <= res.MaxThreads, r"Ограничение вместительности ресурса " + res.Name + "_" + str(
-                        res.ID)
+                    prob += lpDot(x, b) <= res.MaxThreads, r"Ограничение вместительности ресурса " + res.Name + "_" + str(res.ID)
 
                     # сумма интенсивностей по всем операциям для каждого ресурса не более максимальной пропускной способности
-                    prob += lpDot(xp,
-                                  b) <= res.MaxIntense, r"Ограничение производительности ресурса " + res.Name + "_" + str(
-                        res.ID)
+                    prob += lpDot(xp, b) <= res.MaxIntense, r"Ограничение производительности ресурса " + res.Name + "_" + str(res.ID)
                 # /PAVLOV: 2.1.7. (2)
 
                 # PAVLOV: здесь ПСА реализовал аналог формул (2.1.8 – 2.1.11)
@@ -1512,7 +1500,7 @@ class GrandSolver(object):
                     for p in proc.graph.predecessors(op_id):  # найти всех предшественников операции
 
                         if len(list(proc.graph.successors(
-                                p))) <= 1: continue  # если нет альтернативных ветвей, пропустить разбор
+                            p))) <= 1: continue  # если нет альтернативных ветвей, пропустить разбор
 
                         for s in proc.graph.successors(p):  # для каждого предшественника пройти по всем последователям
 
@@ -1545,7 +1533,7 @@ class GrandSolver(object):
 
                 # Solve the problem using the default solver
                 solver = pulp.PULP_CBC_CMD(keepFiles=True, msg=False)
-                # solver.tmpDir = 'TMP'
+                #solver.tmpDir = 'TMP'
                 prob.solve(solver)
 
                 if DEBUG:
@@ -1570,18 +1558,18 @@ class GrandSolver(object):
                 # so we need to re-sort them in numerical order.
 
                 solution = [s.varValue for s in sorted(prob.variables(), key=lambda v: int(v.name.split('_')[1]))]
-                # from pprint import pprint
-                # print(solution)
-
+                #from pprint import pprint
+                #print(solution)
+                
                 # PAVLOV CODE
-                # self.Priorities_all = {}
+                #self.Priorities_all = {}
                 i = 0
                 for job_id in OpFront:
                     for res_id in ResFront:
                         if solution[i]: self.Priorities_all[job_id] = c[i]
                         i += 1
-                # print(self.Priorities_all)
-
+                #print(self.Priorities_all)
+                
                 # PAVLOV /CODE
 
                 # выполнение операций со включенным управлением
@@ -1626,13 +1614,14 @@ class GrandSolver(object):
                                                 print('Но на используемом ресурсе уже нельзя запускать')
 
                                     # continue
-                                # СЛУЧАЙНО ОПРЕДЕЛЯЮ ПРОДОЛЖЕНИЕ (ЗАПРЕТ ПРЕРЫВАНИЯ) (??)
+# СЛУЧАЙНО ОПРЕДЕЛЯЮ ПРОДОЛЖЕНИЕ (ЗАПРЕТ ПРЕРЫВАНИЯ) (??)
                                 if DEBUG_L1 and up == 0:
                                     print("⚠️ Запуск с нулевой интенсивностью", op.Name, op.ID, res.Name, res.ID)
 
                                 load_result = res.load_operation(op, up)  # постановка работы на ресурс
                                 if load_result != RES_REJECTED:  # если работу не отклонил
                                     log_timetable(time, job_id, res_id, up)  # внесение записи в расписание
+
 
                                     if self.logger and load_result:
                                         self.logger.put({
@@ -1657,6 +1646,7 @@ class GrandSolver(object):
                         except StopIteration:
                             break
 
+
                 if not ucntr:
                     if DEBUG_EXEC:
                         print("Управлене не включалось")
@@ -1666,7 +1656,7 @@ class GrandSolver(object):
 
                 if self.logger and not (time % HAMILTONIAN_THINNING):
                     self.logger.put({
-                        "message": 'H = {} - Гамильтониан'.format(value(prob.objective), ),
+                        "message": 'H = {} - Гамильтониан'.format(value(prob.objective),),
                         "variables": {
                             "hamiltonian": [self.time, value(prob.objective)]
                         }
@@ -1696,7 +1686,7 @@ class GrandSolver(object):
                 # (через status?)
                 # если операция началась и не закончилась
                 if op.Status == OP_EXEC:
-                    # if op.X != 0 and op.XP != op.AP:
+                #if op.X != 0 and op.XP != op.AP:
                     # если операция была в расписании и пропала
                     if (time - 1, op.ID) in self.timetable[-1] and (time, op.ID) not in self.timetable[-1]:
                         interruption_type = 1  # прерывание первого типа, зоны видимости
@@ -1739,7 +1729,7 @@ class GrandSolver(object):
                                 dyn_clone_1.set_restriction(interrupted[1], interrupted[0], time + 1)
                                 if DEBUG_INTERRUPT:
                                     print("Действующие ограничения", dyn_clone_1.restriction)
-                                dyn_clone_1.calculate_plan(dict(method="PULP", relaxed=True, debug_tab=debug_tab + 1))
+                                dyn_clone_1.calculate_plan(dict(method="PULP", relaxed=True, debug_tab=debug_tab+1))
                                 # dyn_clone_1.calculate_plan(dict(method="FIFO", relaxed=True))
                                 conflicts1 = dyn_clone_1.QltList['J0'][-1]
                                 del dyn_clone_1
@@ -1758,13 +1748,13 @@ class GrandSolver(object):
                                 if DEBUG_INTERRUPT:
                                     print("Действующие ограничения", dyn_clone_1.restriction)
                                 # dyn_clone_1.calculate_plan(dict(method="FIFO", relaxed=True))
-                                dyn_clone_1.calculate_plan(dict(method="PULP", relaxed=True, debug_tab=debug_tab + 1))
+                                dyn_clone_1.calculate_plan(dict(method="PULP", relaxed=True, debug_tab=debug_tab+1))
                                 conflicts2 = dyn_clone_1.QltList['J0'][-1]
                                 del dyn_clone_1
                                 if DEBUG_INTERRUPT:
                                     print("^" * 30, "  Окончание варианта 2 ", "^" * 30)
 
-                                # conf_res = 1 if conflicts1 < conflicts2 \
+                                #conf_res = 1 if conflicts1 < conflicts2 \
                                 #    else (2 if conflicts1 > conflicts2 else randrange(1, 2))
 
                                 if conflicts1 < conflicts2:
@@ -1825,7 +1815,7 @@ class GrandSolver(object):
                         self.OpPriorMatrix = self.operation_init_conditions.copy()
                         self.StreamPriorMatrix = self.stream_init_conditions.copy()
                         self.ResPriorMatrix = self.resource_init_conditions.copy()
-                        # self.normalize_left()
+                        #self.normalize_left()
                         self.integrate(0, interrupted[0] - 1, {'method': 'EXEC'})
                         self.time = interrupted[0] - 1
 
@@ -1833,6 +1823,7 @@ class GrandSolver(object):
                             print("Текущее время:", self.time)
                             print("Действующие ограничения", self.restriction)
                         return
+
 
         def log_timetable(time, job_id, res_id, intens):
             """Запись в таблицу расписаний.
@@ -1913,16 +1904,16 @@ class GrandSolver(object):
         global index_ham
         global ham_file
         global csv_data
-        csv_data = [['time', 'Job', 'Res', 'C', 'solution']]
+        csv_data = [['time', 'Job','Res','C','solution']]
 
-        empty_loops = 0  # подсчёт количества шагов с пустым фронтом работ
+        empty_loops = 0 # подсчёт количества шагов с пустым фронтом работ
         while self.time <= tf:  # проход по заданному интервалу
-
+            
             # PAVLOV: плохая заглушка для борьбы с биениями
             # TODO добавить прекращение из-за биений
             # if empty_loops > tf: break
 
-            # input('Задержка...')
+            #input('Задержка...')
             # while self.time <= min(tf, self.D):  # проход по заданному интервалу
             # all_done = False
             # while not all_done:  # проход по заданному интервалу
@@ -1934,6 +1925,24 @@ class GrandSolver(object):
             MakeOpFront(self.time)
             # построение фронта ресурсов
             MakeResFront(self.time)
+            #print(OpFront)
+            # PAVLOV: пытаемся скакать по времени до следующего окна
+            if not OpFront:
+                #print(OpFront)
+                windows = []
+                for v in self.availability.values():
+                    windows += [vv[0] for vv in v if vv[0] > self.time]
+                #print(self.time, windows)
+                if windows:
+                    print('Пустой фронт работ на', self.time, '-> прыгаем к следующему окну ', min(windows) - 1)
+                    self.time = min(windows) - 1 # ищем ближайшее окно видимости при пустом фронте работ
+                    #print(self.availability)
+                    print(windows)
+                    # построение фронта работ
+                    MakeOpFront(self.time)
+                    # построение фронта ресурсов
+                    MakeResFront(self.time)
+                    input()
 
             # назначаем работы на ресурсы - главный решатель
             if method == "PULP":
@@ -1961,31 +1970,47 @@ class GrandSolver(object):
                                 print("Завершился процесс", prc.Name)
 
             if method not in ['EXEC', 'NONE']:
-                if len(self.ProcList) <= procs_completed:  # теоретически д.б. "==", расчет procs_completed?
+                if len(self.ProcList) <= procs_completed:   # теоретически д.б. "==", расчет procs_completed?
                     # all_done = True
                     tf = self.time
-                    print("\t" * debug_tab, "✅ Все процессы завершены, план выполнен за", tf)
+                    print("\t"*debug_tab, "✅ Все процессы завершены, план выполнен за", tf)
                 else:
-                    if empty_loops > 7000:
+                    if empty_loops > 3000:
                         print("⚠️ Много пустых итераций. Прерываем")
                         tf = self.time
                     else:
                         tf = self.time + 10
-                        # tf = self.time*2    # PAVLOV: пытаемся нелинейно расширять горизонт планирования - меньше итераций, когда не хватает времени
-
-            self.time += self.Step
+                        #self.availability = {}   # Пытаемся разрешить все операции к исполнению
+                        #print('Пустая итерация. Увеличиваем время. Убираем окна')
+                        #tf = self.time*2    # PAVLOV: пытаемся нелинейно расширять горизонт планирования - меньше итераций, когда не хватает времени
+            #self.time += self.Step
+            if not OpFront:
+                #print(OpFront)
+                windows = []
+                for v in self.availability.values():
+                    windows += [vv[0] for vv in v if vv[0] > self.time]
+                #print(self.time, windows)
+                if windows:
+                    print('Пустой фронт работ на', self.time, '-> прыгаем к следующему окну ', min(windows) - 1)
+                    self.time = min(windows) - 1 # ищем ближайшее окно видимости при пустом фронте работ
+                    #print(self.availability)
+                    print(windows)
+                    # построение фронта работ
+                    MakeOpFront(self.time)
+                    # построение фронта ресурсов
+                    MakeResFront(self.time)
+                    input()
             empty_loops += 1  # считаем циклы, чтобы не зациклиться
 
+        
         self.D = self.time
+
 
         # /PAVLOV: 3.1.1 (коэффициенты при управлении операциями в H1 Гамильтониана)
         i = 0
-        for time_time, job_id in self.timetable[-1].keys():
-            res_id = self.timetable[-1][(time_time, job_id)][0]
-            csv_data.append([time_time, self.get_proc_op(job_id)[1].Name + '(' + str(job_id) + ')',
-                             self.get_clust_res(res_id)[1].Name + '(' + str(res_id) + ')',
-                             str(self.Priorities_all.get(job_id, 0)).replace('.', ','),
-                             str(int(1 if (time_time, job_id) in self.timetable[-1] else 0))])
+        for time_time,job_id in self.timetable[-1].keys():
+            res_id = self.timetable[-1][(time_time,job_id)][0]
+            csv_data.append([time_time, self.get_proc_op(job_id)[1].Name + '(' + str(job_id) + ')', self.get_clust_res(res_id)[1].Name + '(' + str(res_id) + ')', str(self.Priorities_all.get(job_id, 0)).replace('.',','), str(int(1 if (time_time, job_id) in self.timetable[-1] else 0 ))])
             # self.penalty.get(job_id, (0,0,0))[2])
             i += 1
         # /PAVLOV: 3.1.1 (коэффициенты при управлении операциями в H1 Гамильтониана)
@@ -2024,6 +2049,7 @@ class GrandSolver(object):
             print("Расчёт занял", round(t2 - t1, 3), "сек")
         if self.p:
             self.p.send("INF: Расчёт занял " + str(round(t2 - t1, 3)))
+
 
     def Assess(self, e=1):
         """Оценка качества плана. Принятие решения о следующей итерации на основе сравнения обобщённого показателя
@@ -2075,8 +2101,8 @@ class GrandSolver(object):
                                                                                                        ((list(
                                                                                                            i2.values())[
                                                                                                              0] == 0) and (
-                                                                                                                len(
-                                                                                                                    i) > 1))))]
+                                                                                                                    len(
+                                                                                                                        i) > 1))))]
                                                                          for i in logic.values()]))
             # alt_scsr = [[list(i2)[0] for i2 in i if (((len(i) == 1) or
             #                                           ((list(i2.values())[0] == 0) and (len(i) > 1))))][0]
@@ -2146,13 +2172,13 @@ class GrandSolver(object):
         if False and self.logger:
             if self.QltList["J3"][0] > 0 and len(self.QltList["J3"]) != 3:
                 self.logger.put({
-                    "message": 'J3 = {} стоимость реализации плана ( ✕ {})'.format(self.QltList["J3"][-1],
-                                                                                   self.QltList["J3"][0]),
+                    "message": 'J3 = {} стоимость реализации плана ( ✕ {})'.format(self.QltList["J3"][-1],  self.QltList["J3"][0]),
                     "variables": {
                         "quality_j3": [len(self.QltList["J3"]) - 2, self.QltList["J3"][-1]]
                     }
 
                 })
+
 
         # J4 Показатель нарушения директивных сроков
         j4_sum = 0
@@ -2183,12 +2209,14 @@ class GrandSolver(object):
             if self.QltList["J7"][0] > 0 and len(self.QltList["J7"]) != 3:
                 self.logger.put({
                     "message": 'J7 = {} время выполнения плана ( ✕ {})'.format(self.QltList["J7"][-1],
-                                                                               self.QltList["J7"][0]),
+                                                                                   self.QltList["J7"][0]),
                     "variables": {
                         "quality_j7": [len(self.QltList["J7"]) - 2, self.QltList["J7"][-1]]
                     }
 
                 })
+
+
 
         # J8
         self.QltList["J8"].append(0)
@@ -2213,7 +2241,7 @@ class GrandSolver(object):
         if self.logger:
             if len(self.QltList["J0"]) != 3:
                 self.logger.put({
-                    "message": "J0 = {} обобщённый показатель качества".format(self.QltList["J0"][-1], ),
+                    "message": "J0 = {} обобщённый показатель качества".format(self.QltList["J0"][-1],),
                     "variables": {
                         "quality_j0": [len(self.QltList["J0"]) - 2, self.QltList["J0"][-1]],
                         "quality_j3": [len(self.QltList["J3"]) - 2, self.QltList["J3"][-1]],
@@ -2243,22 +2271,23 @@ class GrandSolver(object):
                 # в любом случае, эти операции не нужно учитывать следуя формулам
                 # if tr_op.X == 0 and tr_op.XP == 0:
                 if True:  # если мы исключаем из показателей качества оценку полноты выполнения, то и в условиях трансверсальности её нет
-                    self.operation_conditions[tr_op.ID] = (self.D - tr_op.X) ** 2 * float(self.QltList['J7'][1]) + 2
-                    self.stream_conditions[tr_op.ID] = (self.D - tr_op.XP) ** 2 * float(self.QltList['J7'][1]) + 2
+                    self.operation_conditions[tr_op.ID] = (self.D - tr_op.X)**2 * float(self.QltList['J7'][1]) + 2
+                    self.stream_conditions[tr_op.ID] = (self.D - tr_op.XP)**2 * float(self.QltList['J7'][1]) + 2
                 # else:
                 #     self.operation_conditions[tr_op.ID] = (tr_op.A - tr_op.X) * float(self.QltList['J7'][1]) + 2
                 #     self.stream_conditions[tr_op.ID] = (tr_op.AP - tr_op.XP) * float(self.QltList['J7'][1]) + 2
-                # ОТКЛЮЧЕНО:
-                # невязка умножается на коэффициент свёртки
-                # добавляется двойка, так как операции с нулевым приоритетом никогда не выполняются
-                # (не влияют на максимизацию Гамильтониана)
-                # не единица, а двойка, так как при логарифмической нормировке log 1 = 0,
-                # опять попадаем на нулевой приоритет
+                    # ОТКЛЮЧЕНО:
+                    # невязка умножается на коэффициент свёртки
+                    # добавляется двойка, так как операции с нулевым приоритетом никогда не выполняются
+                    # (не влияют на максимизацию Гамильтониана)
+                    # не единица, а двойка, так как при логарифмической нормировке log 1 = 0,
+                    # опять попадаем на нулевой приоритет
 
                 # при единичной трансверсальности система нечувствительна к исходным данным и всегда выбирает один путь
                 # 2019-10-08 В условия трансверсальности идут значения uv2 -
                 # накопленные значения с начала интервала и до конца выполнения операции
                 # смысл в том, что больший приоритет отдаётся работе, которая выполнялась позже других
+
 
         # расчёт неравномерности использования ресурсов
         # for clust in self.ClustList.values():
@@ -2274,11 +2303,10 @@ class GrandSolver(object):
         max_cost = max(self.resource_conditions.items(), key=operator.itemgetter(1))[1]
         for clust in self.ClustList.values():
             for res in clust.ResList.values():
-                self.resource_conditions[res.ID] = (max_cost - self.resource_conditions[res.ID]) * float(
-                    self.QltList['J3'][1]) + 2
+                self.resource_conditions[res.ID] = (max_cost - self.resource_conditions[res.ID]) * float(self.QltList['J3'][1]) + 2
                 # self.resource_conditions[res.ID] = 50 - res.price  # trying just plain price instead of complex indicator
-                # (max_cost - self.resource_conditions[res.ID]) * float(
-                # self.QltList['J3'][1]) + 2
+                    # (max_cost - self.resource_conditions[res.ID]) * float(
+                    # self.QltList['J3'][1]) + 2
 
         self.OpPriorMatrix = self.operation_conditions.copy()
         self.StreamPriorMatrix = self.stream_conditions.copy()
@@ -2330,6 +2358,7 @@ class GrandSolver(object):
         for proc in self.ProcList.values():
             for op in proc.OpList.values():
                 op.reset()
+
 
                 # сброс врЕменных запретов на выполнение
                 if clear_restrictions:
@@ -2508,6 +2537,7 @@ class GrandSolver(object):
                                                                                                len(
                                                                                                    self.timetable) - 1] else '_')
 
+
             self.time -= self.Step
 
         # сохранение начальных условий сопряжённой системы уравнений
@@ -2635,12 +2665,12 @@ class GrandSolver(object):
         """
         ####
         ## PAVLOV: искуственный ограничитель на число итераций...
-        # global i
-        # if i > 10:
+        #global i
+        #if i > 10:
         #    pass
         #    #return
-        # insp[i] = inspect.stack()[1][2]
-        # i += 1
+        #insp[i] = inspect.stack()[1][2]
+        #i += 1
         ####
         if DEBUG_L1:
             print("Расчёт плана")
@@ -2653,6 +2683,7 @@ class GrandSolver(object):
             integrate_options['method'] = options.get('method', 'FIFO')
             integrate_options['relaxed'] = options.get('relaxed', False)
             integrate_options['debug_tab'] = options.get('debug_tab', 0)
+
 
         # if DEBUG_L1:
         #     print('Построение нулевого решения ' + (
@@ -2671,11 +2702,10 @@ class GrandSolver(object):
             self.logger.put({"type": "log", "message": "Построение диспетчерского решения " + (
                 '(релаксированная задача)' if integrate_options['relaxed'] else '')})
 
-        # TODO: Update integrate_options
+        #TODO: Update integrate_options
 
         # интегрирование диспетчерского решения с запретами на прерывание в прямом направлении
-        self.integrate(0, self.D, dict(debug_tab=integrate_options['debug_tab'], method="FIFO",
-                                       relaxed=integrate_options.get('relaxed', False)))
+        self.integrate(0, self.D, dict(debug_tab=integrate_options['debug_tab'], method="FIFO", relaxed=integrate_options.get('relaxed', False)))
         self.Assess()
 
         if self.logger:
@@ -2694,8 +2724,7 @@ class GrandSolver(object):
             return
 
         # стартуем с нулевым решением
-        self.integrate(0, self.D, dict(debug_tab=integrate_options['debug_tab'], method="NULL",
-                                       relaxed=integrate_options.get('relaxed', False)))
+        self.integrate(0, self.D, dict(debug_tab=integrate_options['debug_tab'], method="NULL", relaxed=integrate_options.get('relaxed', False)))
 
         self.Assess()
 
@@ -2716,12 +2745,13 @@ class GrandSolver(object):
 
             if self.logger:
                 self.logger.put({
-                    "message": 'Итерация {}'.format(self.iteration, ),
+                    "message": 'Итерация {}'.format(self.iteration,),
                     "variables": {
                         "iteration": self.iteration
                     },
                     "type": "log"
                 })
+
 
             # END DEBUG
 
@@ -2737,7 +2767,7 @@ class GrandSolver(object):
                 for k, v in self.operation_init_conditions.items():
                     print(k, v)
 
-            # self.normalize_left()
+            #self.normalize_left()
             from copy import copy
             integrate_options2 = copy(integrate_options)
             integrate_options2['debug_tab'] = integrate_options['debug_tab'] + 1
@@ -2747,7 +2777,7 @@ class GrandSolver(object):
             # в pipe отправляем показатель качества
 
             if self.logger:
-                self.logger.put({"type": 'log', 'message': 'Окончание итерации {}'.format(self.iteration, )})
+                self.logger.put({"type": 'log', 'message': 'Окончание итерации {}'.format(self.iteration,)})
 
             if len(self.QltList["J0"]) > (1 if integrate_options['relaxed'] else 3):
                 if self.p: self.p.send("CMD: stop")
@@ -2790,11 +2820,12 @@ class GrandSolver(object):
             print("Расчёт окончен")
 
         # запись результатов последней оптимизации для Захарова
-        # writer = csv.writer(ham_file, dialect='excel', delimiter=';')
-        # writer.writerows(csv_data)
-        # ham_file.close()
+        #writer = csv.writer(ham_file, dialect='excel', delimiter=';')
+        #writer.writerows(csv_data)
+        #ham_file.close()
 
     # в pipe отправляем признак завершения оптимизации
+
 
     def SaveGanttXML(self, outfilename):
         """Создание исходных данных для dhtmlxGantt"""
@@ -2857,7 +2888,7 @@ class GrandSolver(object):
                 start = now + timedelta(days=int(i.get('start', 0)))
                 stop = now + timedelta(days=int(i.get('stop', 0)))
 
-                # if DEBUG:
+                #if DEBUG:
                 #    print("_ " * i.get('start', 0), "|" * i.get('stop', 0))
 
                 task = etree.SubElement(dataXML, 'task', id=str(job.ID),
@@ -3148,7 +3179,6 @@ class GrandSolver(object):
         outFile = open(outfilename, 'wb')
         doc.write(outFile, xml_declaration=True, encoding='utf-8')
 
-
         """
             <data>
                <item id="1">
@@ -3223,7 +3253,8 @@ class GrandSolver(object):
         if len(self.QltList['J0']) > 2:
             return min(enumerate(self.QltList['J0'][3:]), key=operator.itemgetter(1))[0] + 3
         else:
-            return 1  # PAVLOV: нулевая итерация возвращает 1.0
+            return 1    # PAVLOV: нулевая итерация возвращает 1.0
+        
 
 
 class UniProcess(object):
@@ -3342,7 +3373,7 @@ class UniOp(object):
         if self.X >= self.A and self.XP < self.AP:
             # Palich test (замена OP_TIMEOUT на OP_EXEC ниже по коду) - МОДЕЛЬ РАБОТАЕТ КАК ЧАСЫ
             self.Status = OP_EXEC  # отведенное время вышло (не нашлось ресурса, который бы выполнил операцию в срок, будем нарушать)
-            # self.Status = OP_TIMEOUT  # не выполнилась до конца отведённого времени
+            #self.Status = OP_TIMEOUT  # не выполнилась до конца отведённого времени
             if PRINT:
                 print("Операция", self.Name, "не выполнилась до конца отведённого времени")
         elif self.X < self.A and self.XP >= self.AP:
@@ -3447,7 +3478,7 @@ class UniRes(object):
 
         # исключаем None из входных параметров (added by Palich)
         if maxi is None:
-            self.MaxIntense = 10 ** 6
+            self.MaxIntense = 10**6
         else:
             self.MaxIntense = maxi and float(maxi)
 
@@ -3533,7 +3564,7 @@ def fill_template(dyn, number):
     # клонирование зон видимости со смещением
     zone_shift = 0
     for r, z in dyn.res_availability.items():
-        real_dyn.res_availability[r] = list(map(lambda x: (x[0] + zone_shift, x[1]), z))
+        real_dyn.res_availability[r] = list(map(lambda x: (x[0]+zone_shift, x[1]), z))
         zone_shift += 12
 
     # клонирование процессов заданное количество раз
@@ -3542,16 +3573,13 @@ def fill_template(dyn, number):
         real_proc = real_dyn.AddProc(u"Proc_" + str(sec + 1), uuid1())
         protos = dict()  # связывает новую созданную операцию с её прототипом в шаблоне
 
-        proc_name = list(dyn.ProcList.values())[0].ID  # получение имени первого процесса (было '1', но не только)
+        proc_name = list(dyn.ProcList.values())[0].ID # получение имени первого процесса (было '1', но не только)
         for op in dyn.get_proc(proc_name).OpList.values():
             # требуется гарантировать уникальность идентификатора операции во всей модели
             new_id = uuid1()
             # new_id =  "op_" + str(randint(1, 100))
-            
-            real_op = real_proc.add_operation(op.Name, op.A, op.AP,
+            real_op = real_proc.add_operation("ИЗД_" + str(sec) + "_" + op.Name, op.A, op.AP,
                                               new_id)  # , op.template_id)
-            #real_op = real_proc.add_operation("ИЗД_" + str(sec) + "_" + op.Name, op.A, op.AP,
-            #                                  new_id)  # , op.template_id)
             protos[op.ID] = str(new_id)
 
             # клонирование зон видимости
@@ -3655,7 +3683,6 @@ def read_yaml(file_path):
     except Exception:
         return
 
-
 def get_variable(var_name, default):
     '''Поиск констант в командной строке -> переменных окружения -> конфигурационном файле -> по умолчанию'''
     var_arg = args_dict.get(var_name)
@@ -3670,20 +3697,19 @@ def get_variable(var_name, default):
             var_env = False
         else:
             var_env = type(default)(var_env)
-    ya = read_yaml("env.yaml")
+
     var_file = ya.get(var_name)
     if var_file:
         var_file = type(default)(var_file)
 
     var = var_arg if var_arg is not None else var_env if var_env is not None else var_file if var_file is not None else default
     color = "blue"
-    # var = type(default)(var)
+    #var = type(default)(var)
     if isinstance(var, bool):
         color = "green" if var == True else "red"
     click.secho('\t' + var_name.ljust(21, ' ') + '[{4}]\tcmd {0} ->\tenv {1} ->\tyaml {2} ->\tdefault {3}'.format(
         var_arg, var_env, var_file, default, var), fg=color, bold=True)
     return var
-
 
 @click.command()
 @click.argument('file', type=str, required=True)  # default=sys.stdin для потокового ввода
@@ -3693,7 +3719,7 @@ def main(file, args):
         file = 'models/pavlov/test1.xml'
         file = 'test.xml'
         file = 'tests/basic.xml'
-        file = 'tests/basic2.xml'  # ЗАЦИКЛИВАНИЕ
+        file = 'tests/basic2.xml'   # ЗАЦИКЛИВАНИЕ
         file = 'models/common/robo.bpmn'  # Чтение BPMN
         file = 'models/common/satellite.bpmn'  # Чтение BPMN
         file = 'models/monsg.bpmn'  # Чтение BPMN
@@ -3706,8 +3732,9 @@ def main(file, args):
         file = 'models/pavlov/mytry.bpmn'
     global args_dict
     args_dict = dict(zip(args[::2], args[1::2]))
-    # print(args_dict)
+    #print(args_dict)
     click.secho('Определение констант: ', fg="yellow", bold=True)
+
 
     global DEBUG
     DEBUG = get_variable('DEBUG', True)
@@ -3764,29 +3791,27 @@ def main(file, args):
     global PLOT_GANT
     PLOT_GANT = get_variable('PLOT_GANT', True)
 
+
     click.secho('Модель планирования: ' + str(file), fg="yellow", bold=True)
 
     Dyn = GrandSolver('Шаблон')
-    print("Чтение начал")
+    
     # читаем модель всеми известными способами
     if file.lower().endswith('.xml'):
         dyn = Dyn.read_xml(file)
-        real_dyn = fill_template(dyn, dyn.Threads or 1)  # Количество клонов модели (параллельных процессов!)
+        real_dyn = fill_template(dyn, dyn.Threads or 1)    # Количество клонов модели (параллельных процессов!)
     elif file.lower().endswith('.bpmn'):
-        print('чтение bpmn') #делает
         dyn = Dyn.read_bpmn(file)
-        print(dyn) # сюда не доходит
-        real_dyn = fill_template(dyn, dyn.Threads or 1)  # Количество клонов модели (параллельных процессов!)
-        print("чтение bpmn завершено")
+        real_dyn = fill_template(dyn, dyn.Threads or 1)    # Количество клонов модели (параллельных процессов!)
         pass
-    print("Чтение завершено")
+    
     # real_dyn = dyn
 
     if DEBUG:
         print("Количество процессов", len(real_dyn.ProcList))
 
     # PAVLOV: здесь менять допуск на разрывность операций (relaxed=True - с разрывами)
-    real_dyn.calculate_plan(dict(method="PULP", relaxed=False))
+    real_dyn.calculate_plan(dict(method="PULP", relaxed=True))
 
     if DEBUG:
         print("Интервал планирования: %s" % real_dyn.D)
@@ -3815,17 +3840,6 @@ def main(file, args):
                         'Name': '--'}).Name + " @ " + str(i['intens']))
 
 
-    #print(json.dumps((real_dyn.QltList)))
-    #main.init(real_dyn.QltList)
-    #settings.d.update(real_dyn.QltList)
-    """obj = []
-    for i, val in real_dyn.QltList:
-        obj.append({i, val})
-    print(obj)"""
-    #d = real_dyn.QltList
-    #print(d)
-
-    #return real_dyn.QltList
     if FILE_RESULT_GANT:
         print('Запись диаграммы Ганта')
         real_dyn.SaveGanttXML("result.xml")
@@ -3837,21 +3851,33 @@ def main(file, args):
     if FILE_RESULT_CHART:
         print('Запись диаграммы ресурсов')
         real_dyn.SaveChartXML("chart.xml")
-    import json
-    outputJson = {
-        'QltList': real_dyn.QltList,
-        'WorkTask': [],
-        'WorkResource': [],
-        'ALL_OUTPUT': []
-    }
-    print(outputJson)
-    '''
-    with open('temp.json', 'w') as fp:
-        json.dump(real_dyn.QltList, fp)
-        #print(real_dyn.SaveChartXML())'''
-    if PLOT_GANT:
 
-        # import plotly
+    if PLOT_GANT:
+        '''
+        import plotly.figure_factory as ff
+
+        df = [dict(Task="Job-1", Start='2017-01-01', Finish='2017-02-02', Resource='Complete'),
+            dict(Task="Job-1", Start='2017-02-15', Finish='2017-03-15', Resource='Incomplete'),
+            dict(Task="Job-2", Start='2017-01-17', Finish='2017-02-17', Resource='Not Started'),
+            dict(Task="Job-2", Start='2017-01-17', Finish='2017-02-17', Resource='Complete'),
+            dict(Task="Job-3", Start='2017-03-10', Finish='2017-03-20', Resource='Not Started'),
+            dict(Task="Job-3", Start='2017-04-01', Finish='2017-04-20', Resource='Not Started'),
+            dict(Task="Job-3", Start='2017-05-18', Finish='2017-06-18', Resource='Not Started'),
+            dict(Task="Job-4", Start='2017-01-14', Finish='2017-03-14', Resource='Complete')]
+
+        colors = {'Not Started': 'rgb(220, 0, 0)',
+                'Incomplete': (1, 0.9, 0.16),
+                'Complete': 'rgb(0, 255, 100)'}
+
+        fig = ff.create_gantt(df, colors=colors, index_col='Resource', show_colorbar=True,
+                            group_tasks=True)
+        fig.show()
+
+        #from pprint import pprint
+        #pprint(real_dyn.Schedule)
+        '''
+
+        #import plotly
         import plotly.figure_factory as ff
         import plotly.express as px
         from datetime import datetime, timedelta
@@ -3863,106 +3889,107 @@ def main(file, args):
 
         # Отрисовка показателей качества
         import json
-        # from pprint import pprint
-        # pprint(real_dyn.QltList)
+        #from pprint import pprint
+        #pprint(real_dyn.QltList)
         qlt = deepcopy(real_dyn.QltList)
-        for k, v in list(qlt.items())[1:]:
+        for k,v in list(qlt.items())[1:]:
             # забиваем нулями то, что не соответствует длине
-            # print(qlt)
+            #print(qlt)
             if len(v) != len(qlt['J0']):
                 qlt[k] = [0 for _ in range(len(qlt['J0']))]
             # избавляемся от нулевых показателей
             if max(qlt[k][1:]) == 0:
                 del qlt[k]
                 continue
-            # qlt[k] = qlt[k][1:]                     # избавляемся от приоритета показателя
+            #qlt[k] = qlt[k][1:]                     # избавляемся от приоритета показателя
             max_i = max(qlt[k])
             if max_i > 0:
-                qlt[k] = [v[0]] + [i / max_i for i in v[1:]]  # нормализуем показатели
+                qlt[k] = [v[0]] + [i/max_i for i in v[1:]]    # нормализуем показатели
+            
 
             # избавляемся от незначимых показателей
-            # if not v[0]:
+            #if not v[0]:
             #    del qlt[k]
 
-        # print()
+        #print()
 
         del qlt['J0']
-        # pprint(qlt)
-        # qlt = json.dumps(qlt)
+        #pprint(qlt)
+        #qlt = json.dumps(qlt)
 
         # таблица показателей
         from itertools import zip_longest
 
         head = '''
-    <!-- JQuery -->
-    <script src="gantt/js/jquery-3.5.1.js"></script>
-    <!-- Popper.js first, then Bootstrap JS -->
-    <script src="gantt/js/popper.min.js"></script>
-    <!-- Bootstrap 5 -->
-    <link href="gantt/css/bootstrap.min.css" rel="stylesheet">
-    <script src="gantt/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap 5 icons -->
-    <link rel="stylesheet" href="gantt/css/bootstrap-icons.css">
+<!-- JQuery -->
+<script src="gantt/js/jquery-3.5.1.js"></script>
+<!-- Popper.js first, then Bootstrap JS -->
+<script src="gantt/js/popper.min.js"></script>
+<!-- Bootstrap 5 -->
+<link href="gantt/css/bootstrap.min.css" rel="stylesheet">
+<script src="gantt/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap 5 icons -->
+<link rel="stylesheet" href="gantt/css/bootstrap-icons.css">
 
-    <!-- DataTables -->
-    <script src="gantt/js/jquery.dataTables.min.js"</script>
-    <script src="gantt/js/dataTables.bootstrap5.min.js"</script>
-    <link rel="stylesheet" type="text/css" href="gantt/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="gantt/css/dataTables.bootstrap5.min.css">
-            '''
-
+<!-- DataTables -->
+<script src="gantt/js/jquery.dataTables.min.js"</script>
+<script src="gantt/js/dataTables.bootstrap5.min.js"</script>
+<link rel="stylesheet" type="text/css" href="gantt/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="gantt/css/dataTables.bootstrap5.min.css">
+        '''
+        
         head += '''<script type="text/javascript" class="init">$(document).ready(function () {
-        var table = $('#example').DataTable({
-        language: {
-
-                        "processing": "Подождите...",
-                        "search": "Поиск:",
-                        "lengthMenu": "Показать _MENU_ записей",
-                        "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                        "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                        "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                        "infoPostFix": "",
-                        "loadingRecords": "Загрузка записей...",
-                        "zeroRecords": "Записи отсутствуют.",
-                        "emptyTable": "В таблице отсутствуют данные",
-                        "paginate": {
-                            "first": "Первая",
-                            "previous": "Предыдущая",
-                            "next": "Следующая",
-                            "last": "Последняя"
-                        },
-                        "aria": {
-                            "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                            "sortDescending": ": активировать для сортировки столбца по убыванию"
-                        },
-                        "select": {
-                            "rows": {
-                                "_": "Выбрано записей: %d",
-                                "0": "Кликните по записи для выбора",
-                                "1": "Выбрана одна запись"
-                            }
+    var table = $('#example').DataTable({
+    language: {
+    
+                    "processing": "Подождите...",
+                    "search": "Поиск:",
+                    "lengthMenu": "Показать _MENU_ записей",
+                    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                    "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                    "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                    "infoPostFix": "",
+                    "loadingRecords": "Загрузка записей...",
+                    "zeroRecords": "Записи отсутствуют.",
+                    "emptyTable": "В таблице отсутствуют данные",
+                    "paginate": {
+                        "first": "Первая",
+                        "previous": "Предыдущая",
+                        "next": "Следующая",
+                        "last": "Последняя"
+                    },
+                    "aria": {
+                        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                        "sortDescending": ": активировать для сортировки столбца по убыванию"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "Выбрано записей: %d",
+                            "0": "Кликните по записи для выбора",
+                            "1": "Выбрана одна запись"
                         }
+                    }
 
-        },
-    });
+    },
+});
 
-    $('#example tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
-        alert( 'You clicked on '+data[0]+' row' );
-    } );
+$('#example tbody').on('click', 'tr', function () {
+    var data = table.row( this ).data();
+    alert( 'You clicked on '+data[0]+' row' );
+} );
 
-    });
-    </script>'''
+});
+</script>'''
 
         table = '<table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">'
         thead = '<thead><tr>'
-        thead += '<th>' + 't' + '</th>'
+        thead += '<th>' + 't' +'</th>'
         for j in real_dyn.QltList.keys():
-            thead += '<th>' + j + '</th>'
+            thead += '<th>' + j +'</th>'
         thead += '</tr></thead>'
         table += thead + '<tbody>'
 
-        for i, lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
+        for i,lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
             if not i:
                 continue  # игнорирование первого списка значений (коэффициенты важности показателей)
             table += '<tr>'
@@ -3970,7 +3997,7 @@ def main(file, args):
             for j in lst:
                 table += '<td>' + str(j) + '</td>'
             table += '</tr>'
-
+        
         table += '</tbody>'
         table += thead.replace('thead', 'tfoot')
         table += '</table>'
@@ -3978,29 +4005,32 @@ def main(file, args):
         # лепестковая диаграмма
         import plotly.graph_objects as go
 
-        categories = [k + ' priority=' + str(v[0]) for k, v in list(qlt.items())]
+        categories = [k + ' priority=' + str(v[0]) for k,v in list(qlt.items())]
         categories = [*categories, categories[0]]
 
         fig = go.Figure()
         for i in range(1, len(list(qlt.values())[0])):
-            r = [v[i] for k, v in list(qlt.items())]
+            r = [v[i] for k,v in list(qlt.items())]
             fig.add_trace(go.Scatterpolar(
                 r=[*r, r[0]],
                 theta=categories,
                 fill='toself',
-                name='i=' + str(i)
+                name='i='+ str(i)
             ))
 
         fig.update_layout(
-            polar=dict(
-                radialaxis=dict(
-                    visible=True,
-                    range=[0, 1]
-                )),
-            showlegend=True
+        polar=dict(
+            radialaxis=dict(
+            visible=True,
+            range=[0, 1]
+            )),
+        showlegend=True
         )
 
-        # fig.show()
+        #fig.show()
+        
+
+
 
         # офлайн визуализация всего в один html-файл
         with open('p_graph.html', 'w', encoding="utf-8") as f:
@@ -4011,43 +4041,41 @@ def main(file, args):
             f.write('<div class="container-fluid">')
             f.write('  <div class="row">')
             f.write('    <div class="col-sm-4">')
-            f.write(fig.to_html(full_html=False, include_plotlyjs=True))  # первый True, остальные False
+            f.write(fig.to_html(full_html=False, include_plotlyjs=True))    # первый True, остальные False
             f.write('    </div>')
             f.write('    <div class="col-sm-8">')
             f.write(table)
             f.write('    </div>')
             f.write('  </div>')
 
+
             f.write('<nav>')
             f.write('  <div class="nav nav-tabs" id="nav-tab" role="tablist">')
-            for it, lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
+            for it,lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
                 if not it or it == 0:
                     continue
                 is_or_not_active = 'active' if it == best_iteration else ''
                 aria_selected = 'true' if it == best_iteration else 'false'
-                f.write('    <button class="nav-link ' + is_or_not_active + '" id="nav-' + str(
-                    it) + '-tab" data-bs-toggle="tab" data-bs-target="#nav-' + str(
-                    it) + '" type="button" role="tab" aria-controls="nav-' + str(
-                    it) + '" aria-selected="' + aria_selected + '">' + str(it) + '</button>')
+                f.write('    <button class="nav-link ' + is_or_not_active + '" id="nav-' + str(it) + '-tab" data-bs-toggle="tab" data-bs-target="#nav-' + str(it) + '" type="button" role="tab" aria-controls="nav-' + str(it) + '" aria-selected="' + aria_selected + '">' + str(it) + '</button>')
             f.write('  </div>')
             f.write('</nav>')
 
             f.write('<div class="tab-content" id="nav-tabContent">')
 
-            for it, lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
+            for it,lst in enumerate(zip_longest(*real_dyn.QltList.values(), fillvalue=0.0)):
                 if not it or it == 0:
                     continue
-                if it != best_iteration:  # временно выводим только лучшую итерацию
-                    pass  # continue
-                real_dyn.BuildSchedule(it)  # it = iteration
-                # Отрисовка графиков
-                # now = datetime.today().strftime('%Y-%m-%d %H:%M:')
-                now = datetime.min
+                if it != best_iteration: # временно выводим только лучшую итерацию
+                    pass #continue
+                real_dyn.BuildSchedule(it)   # it = iteration
 
-                # now = datetime.today()
+                # Отрисовка графиков
+                #now = datetime.today().strftime('%Y-%m-%d %H:%M:') 
+                now = datetime.min
+                #now = datetime.today()
                 # ГРАФИК ПО ОПЕРАЦИЯМ - ВЫДЕЛЕНИЕ ЦВЕТОВ ПО РЕСУРСУ
                 df = []
-                annots = []  # аннотации к графикам
+                annots = [] # аннотации к графикам
                 for ProcOp, IntResStartStop in real_dyn.Schedule.items():
                     proc, oper = ProcOp
                     task = str(oper.Name)
@@ -4057,41 +4085,36 @@ def main(file, args):
                     start = (now + timedelta(0, IntResStartStop[0]['start'])).strftime('%Y-%m-%d %H:%M:%S')
                     finish = (now + timedelta(0, IntResStartStop[0]['stop'])).strftime('%Y-%m-%d %H:%M:%S')
                     resource = str(IntResStartStop[0]['res'].Name)
-                    # intens = IntResStartStop[0]['intens']
+                    #intens = IntResStartStop[0]['intens']
                     opprior = '%.2E' % real_dyn.OpPriorMatrix[ProcOp[1].ID]
                     # ПОНЯТЬ ОТКУДА БЕРУТСЯ ПРИОРИТЕТЫ
-                    opprior = '%.2E' % real_dyn.Priorities_all[ProcOp[1].ID] if ProcOp[
-                                                                                    1].ID in real_dyn.Priorities_all else 0
-                    # print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
-                    # df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Intens = intens))
-                
-                    df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Opprior=opprior))
-                    
+                    opprior = '%.2E' % real_dyn.Priorities_all[ProcOp[1].ID] if ProcOp[1].ID in real_dyn.Priorities_all else 0
+                    #print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
+                    #df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Intens = intens))
+                    df.append(dict(Task=task, Start=start, Finish=finish, Resource=resource, Opprior = opprior))
 
                 df.sort(key=lambda x: x["Task"], reverse=True)
-                
-                
-                
+
                 ######
-                r = lambda: random.randint(0, 255)
-                col = (r(), r(), r())
+                r = lambda: random.randint(0,255)
+                col = (r(),r(),r())
                 r_col = (255 - col[0], 255 - col[1], 255 - col[2])
-                colors = ['#%02X%02X%02X' % col]  # цвета ресурсов
-                r_colors = ['#%02X%02X%02X' % r_col]  # реверсивные цвета для текста на столбцах
+                colors = ['#%02X%02X%02X' % col]        # цвета ресурсов
+                r_colors = ['#%02X%02X%02X' % r_col]    # реверсивные цвета для текста на столбцах
                 set_res = list(set([i['Resource'] for i in df]))
                 for i in range(1, len(set_res) + 1):
-                    col = (r(), r(), r())
+                    col = (r(),r(),r())
                     r_col = (255 - col[0], 255 - col[1], 255 - col[2])
                     colors.append('#%02X%02X%02X' % col)
                     r_colors.append('#%02X%02X%02X' % r_col)
                 #####
                 title1 = 'Расписание работ по операциям'
                 fig1 = ff.create_gantt(df, title=title1, colors=colors, index_col='Resource', show_colorbar=True,
-                                       group_tasks=False, showgrid_x=True, showgrid_y=True)
+                                    group_tasks=False, showgrid_x=True, showgrid_y=True)
                 fig1.update_layout(overwrite=True, legend_traceorder="grouped")
                 #  визуализация  при явном указании диапазона времени
-                max_x = max([i['Finish'] for i in df])
-                min_x = min([i['Start'] for i in df])
+                max_x = max([i['Finish']for i in df])
+                min_x = min([i['Start']for i in df])
                 fig1.update_layout(xaxis_range=[min_x, max_x])
                 fig1.update_layout(legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.9))
 
@@ -4101,93 +4124,80 @@ def main(file, args):
                     # Вычисляем куда шлепать надпись
                     a = parse(df[i]['Start'])
                     b = parse(df[i]['Finish'])
-                    LabelDate = a + (b - a) / 2
-                    # text = df[i]['Task']
+                    LabelDate = a + (b - a)/2
+                    #text = df[i]['Task']
                     text = df[i]['Opprior']
-                    annots.append(dict(x=LabelDate, y=i, text=text, showarrow=False,
-                                       font=dict(color=r_colors[set_res.index(df[i]['Resource'])])))
+                    annots.append(dict(x=LabelDate,y=i,text=text, showarrow=False, font=dict(color=r_colors[set_res.index(df[i]['Resource'])])))
 
                 # plot figure
                 fig1['layout']['annotations'] = annots
 
-                grafparam = {
-                    'id': it,
-                    'data': df,
-                    'colors': colors,
-                }
-                outputJson["WorkTask"].append(grafparam)
+                # рисуем начала и концы разрешений на выполнение операций (интервалы постоянства)
+                fig1.add_vline(x=(now + timedelta(0, 0)).strftime('%Y-%m-%d %H:%M:%S'), line_dash="dash", line_color="green")
+                for aval in real_dyn.availability.values():
+                    for x in aval:
+                        fig1.add_vline(x=(now + timedelta(0, x[0])).strftime('%Y-%m-%d %H:%M:%S'), line_dash="dash", line_color="green")
+                fig1.update_layout()
+
 
                 # ГРАФИК ПО РЕСУРСАМ - ВЫДЕЛЕНИЕ ЦВЕТОВ ПО ОПЕРАЦИИ
                 df = []
-                print(real_dyn.Schedule.items())
-                dataALL = {
-                        'id': it,
-                        'data': [],
-                    }
                 for ProcOp, IntResStartStop in real_dyn.Schedule.items():
-                    #print(IntResStartStop)
-                    
                     proc, oper = ProcOp
-                    #print(oper.Name, oper.A, oper.AP, oper.X, oper.XP)
-                    #print(proc.Name, proc.OpList, proc.ID)
                     task = str(oper.Name)
                     # убираем пустые операции из расписания (added by Palich)
                     if not IntResStartStop:
                         continue
                     start = (now + timedelta(0, IntResStartStop[0]['start'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19)
-                    #print(datetime.now())
-                    #print(IntResStartStop[0]['res'])
-                    #print((datetime.now() + timedelta(0, IntResStartStop[0]['start'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19))
                     finish = (now + timedelta(0, IntResStartStop[0]['stop'])).strftime('%Y-%m-%d %H:%M:%S').zfill(19)
                     resource = str(IntResStartStop[0]['res'].Name)
-                    # print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
-                    dataOutput = {
-                        'oper_Name': str(oper.Name),
-                        'oper_A': str(oper.A),
-                        'oper_AP': str(oper.AP),
-                        'oper_X': str(oper.X),
-                        'oper_XP': str(oper.XP),
-                        'res': {
-                            'start': IntResStartStop[0]['start'],
-                            'stop': IntResStartStop[0]['stop'],
-                            'intens': IntResStartStop[0]['intens'],
-                            'Name': IntResStartStop[0]['res'].Name,
-                        } 
-                    }
-                    dataALL["data"].append(dataOutput)
+                    #print(dict(Task=task, Start=now+start, Finish=now+finish, Resource=resource))
                     df.append(dict(Task=resource, Start=start, Finish=finish, Resource=task))
 
                 df.sort(key=lambda x: x["Task"], reverse=False)
-                
-                outputJson['ALL_OUTPUT'].append(dataALL)
+
                 ######
-                r = lambda: random.randint(0, 255)
-                colors = ['#%02X%02X%02X' % (r(), r(), r())]
+                r = lambda: random.randint(0,255)
+                colors = ['#%02X%02X%02X' % (r(),r(),r())]
                 for i in range(1, len(set([i['Resource'] for i in df])) + 1):
-                    colors.append('#%02X%02X%02X' % (r(), r(), r()))
+                    colors.append('#%02X%02X%02X' % (r(),r(),r()))
                 #####
                 title2 = 'Расписание работ по ресурсам'
                 fig2 = ff.create_gantt(df, title=title2, colors=colors, index_col='Resource', show_colorbar=True,
-                                       group_tasks=True, showgrid_x=True, showgrid_y=True)
+                                    group_tasks=True, showgrid_x=True, showgrid_y=True)
                 fig2.update_layout(overwrite=True, legend_traceorder="grouped")
                 #  визуализация  при явном указании диапазона времени
-                max_x2 = max([i['Finish'] for i in df])
-                min_x2 = min([i['Start'] for i in df])
+                max_x2 = max([i['Finish']for i in df])
+                min_x2 = min([i['Start']for i in df])
                 fig2.update_layout(xaxis_range=[min_x2, max_x2])
                 fig2.update_layout(legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.9))
-                grafparam = {
-                    'id': it,
-                    'data': df,
-                    'colors': colors
-                }
-                outputJson["WorkResource"].append(grafparam)
 
 
+                '''from plotly.subplots import make_subplots
+                fig12 = make_subplots(rows=2, cols=1, shared_xaxes=True)
+                fig12.append_trace(fig1._data_objs, row=1, col=1)
+                fig12.append_trace(fig2._data_objs, row=2, col=1)
+                fig12.update_layout(height=600, width=600, title_text="Stacked Subplots")
+                fig12.show()'''
+
+                #fig1.show() #Стандартный показ в браузере (требуется интернет) - нестабильный вариант
+
+                ## офлайн визуализация в браузере - стабильнывй вариант
+                ## требуется gantt.html + папака js
+                #import json
+                #graphJSON1 = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
+                #with open('gantt/gantt_1.JSON', 'w') as file:
+                #    file.write('var graphs = {};'.format(graphJSON1))
+
+                #graphJSON2 = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
+                #with open('gantt/gantt_2.JSON', 'w') as file:
+                #    file.write('var graphs = {};'.format(graphJSON2))
 
                 is_or_not_active = 'show active' if it == best_iteration else ''
                 aria_selected = 'true' if it == best_iteration else 'false'
-                f.write('<div class="tab-pane fade ' + is_or_not_active + '" id="nav-' + str(
-                    it) + '" role="tabpanel" aria-labelledby="nav-' + str(it) + '-tab" tabindex="0">')
+                f.write('<div class="tab-pane fade ' + is_or_not_active + '" id="nav-' + str(it) + '" role="tabpanel" aria-labelledby="nav-' + str(it) + '-tab" tabindex="0">')
+
+
 
                 f.write('  <div class="row">')
                 f.write('    <div class="col-sm">')
@@ -4199,20 +4209,19 @@ def main(file, args):
                 f.write(fig2.to_html(full_html=False, include_plotlyjs=False))
                 f.write('    </div>')
                 f.write('  </div>')
-                # f.write('</div>')
+                #f.write('</div>')
+
 
                 f.write('</div>')
 
-            # f.write('</div>')
+            #f.write('</div>')
             f.write('</div>')
-
+                
             f.write('</body>')
             f.write('</html>')
-            print(outputJson)
-            with open('temp.json', 'w') as fp:
-                json.dump(outputJson, fp)
-        # import os
-        # os.system("start p_graph.html")
+        
+        #import os
+        #os.system("start p_graph.html")
 
 if __name__ == '__main__':
     ya = read_yaml("env.yaml")
