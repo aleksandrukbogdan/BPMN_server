@@ -4,9 +4,6 @@
     <extensionElements>
       <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724" />
       <yaoqiang:page background="#FFFFFF" horizontalCount="3" verticalCount="2" />
-      <ltsm:props task_id="_3" res_id="RS_4" availability_time="0" availability_value="0"/>
-      <ltsm:props task_id="_3" res_id="RS_4" availability_time="15" availability_value="1"/>
-      <ltsm:props task_id="_3" res_id="RS_4" availability_time="30" availability_value="0"/>
     </extensionElements>
     <startEvent id="_2" name="Start Event">
       <extensionElements>
@@ -18,15 +15,10 @@
     <task id="_3" name="Общий входной поток">
       <extensionElements>
         <ltsm:props stream="0" volume="0" />
-        <ltsm:props availability_time="10" availability_value="1"/>
-        <ltsm:props availability_time="20" availability_value="0"/>
-        <ltsm:props availability_time="30" availability_value="1"/>
-        <ltsm:props availability_time="120" availability_value="0"/>
-        <ltsm:props availability_time="150" availability_value="1"/>
       </extensionElements>
       <incoming>_4</incoming>
       <outgoing>_6</outgoing>
-      <performer id="_3_RES_1">
+      <performer id="_3_RES_1"> 
         <resourceRef>RS_1</resourceRef>
       </performer>
     </task>
@@ -59,7 +51,6 @@
       </performer>
       <performer id="_7_RES_2">
         <resourceRef>RS_2</resourceRef>
-
       </performer>
     </task>
     <task id="_8" name="Поток второго интервала">
@@ -111,7 +102,7 @@
       </extensionElements>
       <incoming>_15</incoming>
       <outgoing>_30</outgoing>
-      <performer id="_19_RES_2">
+      <performer id="_19_RES_2"> 
         <resourceRef>RS_2</resourceRef>
       </performer>
     </task>

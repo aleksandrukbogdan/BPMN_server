@@ -1,0 +1,1343 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ltsm="http://litsam.ru" xmlns:tns="http://sourceforge.net/bpmn/definitions/_1686256228720" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="Camunda Modeler" exporterVersion="2.2.1" expressionLanguage="http://www.w3.org/1999/XPath" id="_1686256228720" name="" targetNamespace="http://sourceforge.net/bpmn/definitions/_1686256228720" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
+    <extensionElements>
+      <yaoqiang:description/>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
+      <yaoqiang:page background="#FFFFFF" horizontalCount="3" verticalCount="2"/>
+    </extensionElements>
+    <task completionQuantity="1" id="_3" isForCompensation="false" name="a1,1" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000" fontColor="#FFFFFF" strokeColor="#FFFFFF"/>
+      </extensionElements>
+      <incoming>_13</incoming>
+      <outgoing>_153</outgoing>
+      <performer id="_3_RES_2">
+        <resourceRef>RS_2</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_7" isForCompensation="false" name="a1,2" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000" fontColor="#ffffff" strokeColor="#FFFFFF"/>
+      </extensionElements>
+      <incoming>_16</incoming>
+      <outgoing>_11</outgoing>
+      <performer id="_7_RES_3">
+        <resourceRef>RS_3</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_8" isForCompensation="false" name="a1,3" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_18</incoming>
+      <outgoing>_10</outgoing>
+      <performer id="_8_RES_4">
+        <resourceRef>RS_4</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_17" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_58</incoming>
+      <outgoing>_60</outgoing>
+      <performer id="_17_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_24" isForCompensation="false" name="a1,4" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_20</incoming>
+      <outgoing>_9</outgoing>
+      <performer id="_24_RES_1">
+        <resourceRef>RS_1</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_28" isForCompensation="false" name="a1,10" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="3"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_154</incoming>
+      <outgoing>_157</outgoing>
+      <performer id="_28_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_32" isForCompensation="false" name="a1,17" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="4"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_170</incoming>
+      <outgoing>_162</outgoing>
+      <performer id="_32_RES_13">
+        <resourceRef>RS_13</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_39" isForCompensation="false" name="a1,11" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="3"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_155</incoming>
+      <outgoing>_158</outgoing>
+      <performer id="_39_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_41" isForCompensation="false" name="a1,13" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_164</incoming>
+      <outgoing>_166</outgoing>
+      <performer id="_41_RES_10">
+        <resourceRef>RS_10</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_48" isForCompensation="false" name="a1,5" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_49</incoming>
+      <outgoing>_50</outgoing>
+      <performer id="_48_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_52" isForCompensation="false" name="a1,15" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="4"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_168</incoming>
+      <outgoing>_160</outgoing>
+      <performer id="_52_RES_13">
+        <resourceRef>RS_13</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_55" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_50</incoming>
+      <outgoing>_51</outgoing>
+      <performer id="_55_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_59" isForCompensation="false" name="a1,14" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_165</incoming>
+      <outgoing>_167</outgoing>
+      <performer id="_59_RES_12">
+        <resourceRef>RS_12</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_62" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_51</incoming>
+      <outgoing>_145</outgoing>
+      <performer id="_62_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" whiteSpace="wrap"/>
+      </extensionElements>
+      <outgoing>_12</outgoing>
+      <outputSet/>
+    </startEvent>
+    <task completionQuantity="1" id="_97" isForCompensation="false" name="a1,16" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="4"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_169</incoming>
+      <outgoing>_161</outgoing>
+      <performer id="_97_RES_13">
+        <resourceRef>RS_13</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_136" isForCompensation="false" name="a1,12" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="3"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_156</incoming>
+      <outgoing>_159</outgoing>
+      <performer id="_136_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_34" isForCompensation="false" name="a1,8" startQuantity="1">
+      <extensionElements>
+        <yaoqiang:style fillColor="#000000" whiteSpace="wrap"/>
+        <ltsm:props stream="100" volume="8"/>
+      </extensionElements>
+      <incoming>_68</incoming>
+      <outgoing>_69</outgoing>
+      <performer id="_34_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <exclusiveGateway gatewayDirection="Diverging" id="_5" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1"/>
+      </extensionElements>
+      <incoming>_9</incoming>
+      <incoming>_10</incoming>
+      <incoming>_11</incoming>
+      <outgoing>_49</outgoing>
+      <outgoing>_53</outgoing>
+      <outgoing>_61</outgoing>
+      <outgoing>_70</outgoing>
+      <outgoing>_73</outgoing>
+      <outgoing>_103</outgoing>
+      <outgoing>_142</outgoing>
+      <outgoing>_143</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_9" sourceRef="_24" targetRef="_5"/>
+    <sequenceFlow id="_10" sourceRef="_8" targetRef="_5"/>
+    <sequenceFlow id="_11" sourceRef="_7" targetRef="_5"/>
+    <exclusiveGateway gatewayDirection="Diverging" id="_15" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1"/>
+      </extensionElements>
+      <incoming>_12</incoming>
+      <outgoing>_13</outgoing>
+      <outgoing>_16</outgoing>
+      <outgoing>_18</outgoing>
+      <outgoing>_20</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_12" sourceRef="_2" targetRef="_15"/>
+    <sequenceFlow id="_13" sourceRef="_15" targetRef="_3"/>
+    <sequenceFlow id="_16" sourceRef="_15" targetRef="_7"/>
+    <sequenceFlow id="_18" sourceRef="_15" targetRef="_8"/>
+    <sequenceFlow id="_20" sourceRef="_15" targetRef="_24"/>
+    <task completionQuantity="1" id="_21" isForCompensation="false" name="a1,5" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_53</incoming>
+      <outgoing>_57</outgoing>
+      <performer id="_21_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_22" isForCompensation="false" name="a1,5" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_61</incoming>
+      <outgoing>_63</outgoing>
+      <performer id="_22_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_23" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_57</incoming>
+      <outgoing>_58</outgoing>
+      <performer id="_23_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_25" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_60</incoming>
+      <outgoing>_146</outgoing>
+      <performer id="_25_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_27" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_69</incoming>
+      <outgoing>_147</outgoing>
+      <performer id="_27_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_31" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_63</incoming>
+      <outgoing>_64</outgoing>
+      <performer id="_31_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_37" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_64</incoming>
+      <outgoing>_68</outgoing>
+      <performer id="_37_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_38" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_70</incoming>
+      <outgoing>_72</outgoing>
+      <performer id="_38_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_42" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_72</incoming>
+      <outgoing>_148</outgoing>
+      <performer id="_42_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_44" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_73</incoming>
+      <outgoing>_78</outgoing>
+      <performer id="_44_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_46" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_78</incoming>
+      <outgoing>_79</outgoing>
+      <performer id="_46_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_47" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_79</incoming>
+      <outgoing>_149</outgoing>
+      <performer id="_47_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_49" sourceRef="_5" targetRef="_48"/>
+    <sequenceFlow id="_50" sourceRef="_48" targetRef="_55"/>
+    <sequenceFlow id="_51" sourceRef="_55" targetRef="_62"/>
+    <sequenceFlow id="_53" sourceRef="_5" targetRef="_21"/>
+    <sequenceFlow id="_57" sourceRef="_21" targetRef="_23"/>
+    <sequenceFlow id="_58" sourceRef="_23" targetRef="_17"/>
+    <sequenceFlow id="_60" sourceRef="_17" targetRef="_25"/>
+    <sequenceFlow id="_61" sourceRef="_5" targetRef="_22"/>
+    <sequenceFlow id="_63" sourceRef="_22" targetRef="_31"/>
+    <sequenceFlow id="_64" sourceRef="_31" targetRef="_37"/>
+    <sequenceFlow id="_68" sourceRef="_37" targetRef="_34"/>
+    <sequenceFlow id="_69" sourceRef="_34" targetRef="_27"/>
+    <sequenceFlow id="_70" sourceRef="_5" targetRef="_38"/>
+    <sequenceFlow id="_72" sourceRef="_38" targetRef="_42"/>
+    <sequenceFlow id="_73" sourceRef="_5" targetRef="_44"/>
+    <sequenceFlow id="_78" sourceRef="_44" targetRef="_46"/>
+    <sequenceFlow id="_79" sourceRef="_46" targetRef="_47"/>
+    <task completionQuantity="1" id="_88" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_93</incoming>
+      <outgoing>_94</outgoing>
+      <performer id="_88_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_90" isForCompensation="false" name="a1,6" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_103</incoming>
+      <outgoing>_93</outgoing>
+      <performer id="_90_RES_6">
+        <resourceRef>RS_6</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_91" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_95</incoming>
+      <outgoing>_150</outgoing>
+      <performer id="_91_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_92" isForCompensation="false" name="a1,8" startQuantity="1">
+      <extensionElements>
+        <yaoqiang:style fillColor="#000000" whiteSpace="wrap"/>
+        <ltsm:props stream="100" volume="8"/>
+      </extensionElements>
+      <incoming>_94</incoming>
+      <outgoing>_95</outgoing>
+      <performer id="_92_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_93" sourceRef="_90" targetRef="_88"/>
+    <sequenceFlow id="_94" sourceRef="_88" targetRef="_92"/>
+    <sequenceFlow id="_95" sourceRef="_92" targetRef="_91"/>
+    <sequenceFlow id="_103" sourceRef="_5" targetRef="_90"/>
+    <task completionQuantity="1" id="_119" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_144</incoming>
+      <outgoing>_151</outgoing>
+      <performer id="_119_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_121" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_142</incoming>
+      <outgoing>_144</outgoing>
+      <performer id="_121_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_131" isForCompensation="false" name="a1,8" startQuantity="1">
+      <extensionElements>
+        <yaoqiang:style fillColor="#000000" whiteSpace="wrap"/>
+        <ltsm:props stream="100" volume="8"/>
+      </extensionElements>
+      <incoming>_140</incoming>
+      <outgoing>_141</outgoing>
+      <performer id="_131_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_132" isForCompensation="false" name="a1,9" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="1400" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_141</incoming>
+      <outgoing>_152</outgoing>
+      <performer id="_132_RES_8">
+        <resourceRef>RS_8</resourceRef>
+      </performer>
+    </task>
+    <task completionQuantity="1" id="_137" isForCompensation="false" name="a1,7" startQuantity="1">
+      <extensionElements>
+        <ltsm:props stream="100" volume="8"/>
+        <yaoqiang:style fillColor="#000000"/>
+      </extensionElements>
+      <incoming>_143</incoming>
+      <outgoing>_140</outgoing>
+      <performer id="_137_RES_5">
+        <resourceRef>RS_5</resourceRef>
+      </performer>
+    </task>
+    <sequenceFlow id="_140" sourceRef="_137" targetRef="_131"/>
+    <sequenceFlow id="_141" sourceRef="_131" targetRef="_132"/>
+    <sequenceFlow id="_142" sourceRef="_5" targetRef="_121"/>
+    <sequenceFlow id="_143" sourceRef="_5" targetRef="_137"/>
+    <sequenceFlow id="_144" sourceRef="_121" targetRef="_119"/>
+    <exclusiveGateway gatewayDirection="Converging" id="_89" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1"/>
+      </extensionElements>
+      <incoming>_145</incoming>
+      <incoming>_146</incoming>
+      <incoming>_147</incoming>
+      <incoming>_148</incoming>
+      <incoming>_149</incoming>
+      <incoming>_150</incoming>
+      <incoming>_151</incoming>
+      <incoming>_152</incoming>
+      <incoming>_153</incoming>
+      <outgoing>_154</outgoing>
+      <outgoing>_155</outgoing>
+      <outgoing>_156</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_145" sourceRef="_62" targetRef="_89"/>
+    <sequenceFlow id="_146" sourceRef="_25" targetRef="_89"/>
+    <sequenceFlow id="_147" sourceRef="_27" targetRef="_89"/>
+    <sequenceFlow id="_148" sourceRef="_42" targetRef="_89"/>
+    <sequenceFlow id="_149" sourceRef="_47" targetRef="_89"/>
+    <sequenceFlow id="_150" sourceRef="_91" targetRef="_89"/>
+    <sequenceFlow id="_151" sourceRef="_119" targetRef="_89"/>
+    <sequenceFlow id="_152" sourceRef="_132" targetRef="_89"/>
+    <sequenceFlow id="_153" sourceRef="_3" targetRef="_89"/>
+    <sequenceFlow id="_154" sourceRef="_89" targetRef="_28"/>
+    <sequenceFlow id="_155" sourceRef="_89" targetRef="_39"/>
+    <sequenceFlow id="_156" sourceRef="_89" targetRef="_136"/>
+    <exclusiveGateway gatewayDirection="Converging" id="_96" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1"/>
+      </extensionElements>
+      <incoming>_157</incoming>
+      <incoming>_158</incoming>
+      <incoming>_159</incoming>
+      <outgoing>_164</outgoing>
+      <outgoing>_165</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_157" sourceRef="_28" targetRef="_96"/>
+    <sequenceFlow id="_158" sourceRef="_39" targetRef="_96"/>
+    <sequenceFlow id="_159" sourceRef="_136" targetRef="_96"/>
+    <endEvent id="_117" name="End Event">
+      <incoming>_163</incoming>
+      <inputSet/>
+    </endEvent>
+    <exclusiveGateway gatewayDirection="Converging" id="_112" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1" whiteSpace="wrap"/>
+      </extensionElements>
+      <incoming>_160</incoming>
+      <incoming>_161</incoming>
+      <incoming>_162</incoming>
+      <outgoing>_163</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_160" sourceRef="_52" targetRef="_112"/>
+    <sequenceFlow id="_161" sourceRef="_97" targetRef="_112"/>
+    <sequenceFlow id="_162" sourceRef="_32" targetRef="_112"/>
+    <sequenceFlow id="_163" sourceRef="_112" targetRef="_117"/>
+    <sequenceFlow id="_164" sourceRef="_96" targetRef="_41"/>
+    <sequenceFlow id="_165" sourceRef="_96" targetRef="_59"/>
+    <exclusiveGateway gatewayDirection="Diverging" id="_65" name="Exclusive Gateway">
+      <extensionElements>
+        <yaoqiang:style noLabel="1"/>
+      </extensionElements>
+      <incoming>_166</incoming>
+      <incoming>_167</incoming>
+      <outgoing>_168</outgoing>
+      <outgoing>_169</outgoing>
+      <outgoing>_170</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="_166" sourceRef="_41" targetRef="_65"/>
+    <sequenceFlow id="_167" sourceRef="_59" targetRef="_65"/>
+    <sequenceFlow id="_168" sourceRef="_65" targetRef="_52"/>
+    <sequenceFlow id="_169" sourceRef="_65" targetRef="_97"/>
+    <sequenceFlow id="_170" sourceRef="_65" targetRef="_32"/>
+  </process>
+  <resource id="RS_1" name="MTZ-1221+GMS-3600">
+    <resourceParameter id="RS_1_P_1" name="threads"/>
+    <resourceParameter id="RS_1_P_2" name="productivity"/>
+    <resourceParameter id="RS_1_P_3" name="name"/>
+  </resource>
+  <resource id="RS_2" name="Maral-125M">
+    <resourceParameter id="RS_2_P_1" name="threads"/>
+    <resourceParameter id="RS_2_P_2" name="productivity"/>
+    <resourceParameter id="RS_2_P_3" name="name"/>
+  </resource>
+  <resource id="RS_3" name="MTZ-82+KPN-2.1">
+    <resourceParameter id="RS_3_P_1" name="threads"/>
+    <resourceParameter id="RS_3_P_2" name="productivity"/>
+    <resourceParameter id="RS_3_P_3" name="name"/>
+  </resource>
+  <resource id="RS_4" name="MTZ-82+KPP-3.1">
+    <resourceParameter id="RS_4_P_1" name="threads"/>
+    <resourceParameter id="RS_4_P_2" name="productivity"/>
+    <resourceParameter id="RS_4_P_3" name="name"/>
+  </resource>
+  <resource id="RS_5" name="MTZ-1221+VOLTO64">
+    <resourceParameter id="RS_5_P_1" name="threads"/>
+    <resourceParameter id="RS_5_P_2" name="productivity"/>
+    <resourceParameter id="RS_5_P_3" name="name"/>
+  </resource>
+  <resource id="RS_6" name="MTZ-82+GVR-6.0">
+    <resourceParameter id="RS_6_P_1" name="threads"/>
+    <resourceParameter id="RS_6_P_2" name="productivity"/>
+    <resourceParameter id="RS_6_P_3" name="name"/>
+  </resource>
+  <resource id="RS_7" name="MTZ-82+LINER1550">
+    <resourceParameter id="RS_7_P_1" name="threads"/>
+    <resourceParameter id="RS_7_P_2" name="productivity"/>
+    <resourceParameter id="RS_7_P_3" name="name"/>
+  </resource>
+  <resource id="RS_8" name="DON-680">
+    <resourceParameter id="RS_8_P_1" name="threads"/>
+    <resourceParameter id="RS_8_P_2" name="productivity"/>
+    <resourceParameter id="RS_8_P_3" name="name"/>
+  </resource>
+  <resource id="RS_9" name="RSM1401">
+    <resourceParameter id="RS_9_P_1" name="threads"/>
+    <resourceParameter id="RS_9_P_2" name="productivity"/>
+    <resourceParameter id="RS_9_P_3" name="name"/>
+  </resource>
+  <resource id="RS_10" name="MTZ-82+PC-30">
+    <resourceParameter id="RS_10_P_1" name="threads"/>
+    <resourceParameter id="RS_10_P_2" name="productivity"/>
+    <resourceParameter id="RS_10_P_3" name="name"/>
+  </resource>
+  <resource id="RS_11" name="MTZ-1221+PC-45">
+    <resourceParameter id="RS_11_P_1" name="threads"/>
+    <resourceParameter id="RS_11_P_2" name="productivity"/>
+    <resourceParameter id="RS_11_P_3" name="name"/>
+  </resource>
+  <resource id="RS_12" name="KAMAZ">
+    <resourceParameter id="RS_12_P_1" name="threads"/>
+    <resourceParameter id="RS_12_P_2" name="productivity"/>
+    <resourceParameter id="RS_12_P_3" name="name"/>
+  </resource>
+  <resource id="RS_13" name="DT-75+DZ-42">
+    <resourceParameter id="RS_13_P_1" name="threads"/>
+    <resourceParameter id="RS_13_P_2" name="productivity"/>
+    <resourceParameter id="RS_13_P_3" name="name"/>
+  </resource>
+  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-PROCESS_1" name="Untitled Diagram" resolution="96">
+    <bpmndi:BPMNPlane bpmnElement="PROCESS_1">
+      <bpmndi:BPMNShape bpmnElement="_3" id="Yaoqiang-_3">
+        <dc:Bounds height="60.0" width="120.0" x="222.02941176470586" y="545.0882352941176"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.84" width="27.0" x="268.53" y="567.17"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" id="Yaoqiang-_7">
+        <dc:Bounds height="60.0" width="120.0" x="205.16666666666663" y="746.3333333333334"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.84" width="27.0" x="251.67" y="768.42"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" id="Yaoqiang-_8">
+        <dc:Bounds height="60.0" width="120.0" x="208.49999999999994" y="892.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="254.5" y="914.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_17" id="Yaoqiang-_17">
+        <dc:Bounds height="60.0" width="120.0" x="917.8333333333333" y="808.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="963.83" y="830.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_24" id="Yaoqiang-_24">
+        <dc:Bounds height="60.0" width="120.0" x="205.49999999999994" y="1009.3333333333334"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="251.5" y="1031.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_28" id="Yaoqiang-_28">
+        <dc:Bounds height="60.0" width="120.0" x="1660.1666666666665" y="829.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="1703.17" y="851.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_32" id="Yaoqiang-_32">
+        <dc:Bounds height="60.0" width="120.0" x="2345.1666666666665" y="1126.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="2388.17" y="1148.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_39" id="Yaoqiang-_39">
+        <dc:Bounds height="60.0" width="120.0" x="1655.5" y="977.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="1698.5" y="999.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_41" id="Yaoqiang-_41">
+        <dc:Bounds height="60.0" width="120.0" x="2044.5" y="930.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="2087.5" y="953.03"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_48" id="Yaoqiang-_48">
+        <dc:Bounds height="60.0" width="120.0" x="585.3700787401575" y="692.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="631.37" y="714.99"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_52" id="Yaoqiang-_52">
+        <dc:Bounds height="60.0" width="120.0" x="2344.1312335958005" y="918.0813648293965"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="2387.13" y="940.44"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_55" id="Yaoqiang-_55">
+        <dc:Bounds height="60.0" width="120.0" x="756.1417322834646" y="690.0131233595802"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="802.14" y="712.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_59" id="Yaoqiang-_59">
+        <dc:Bounds height="60.0" width="120.0" x="2039.716535433071" y="1092.9422572178478"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="2082.72" y="1115.3"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_62" id="Yaoqiang-_62">
+        <dc:Bounds height="60.0" width="120.0" x="1252.4015748031497" y="695.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1298.4" y="718.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" id="Yaoqiang-_2">
+        <dc:Bounds height="32.0" width="32.0" x="3.9705882352940733" y="822.7352941176471"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="16.97" y="958.73"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_97" id="Yaoqiang-_97">
+        <dc:Bounds height="60.0" width="120.0" x="2344.0" y="1028.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="2387.0" y="1050.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_136" id="Yaoqiang-_136">
+        <dc:Bounds height="60.0" width="120.0" x="1651.0" y="1113.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="34.0" x="1694.0" y="1135.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_34" id="Yaoqiang-_34">
+        <dc:Bounds height="60.0" width="120.0" x="1091.0" y="920.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1137.0" y="942.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" id="Yaoqiang-_5" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="487.16666666666663" y="715.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="505.17" y="743.67"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" id="Yaoqiang-_15" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="100.83333333333326" y="800.3333333333334"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="118.83" y="828.33"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_21" id="Yaoqiang-_21">
+        <dc:Bounds height="60.0" width="120.0" x="584.3700787401575" y="798.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="630.37" y="820.99"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_22" id="Yaoqiang-_22">
+        <dc:Bounds height="60.0" width="120.0" x="581.3700787401575" y="915.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="627.37" y="937.99"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_23" id="Yaoqiang-_23">
+        <dc:Bounds height="60.0" width="120.0" x="755.1417322834646" y="805.0131233595802"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="801.14" y="827.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_25" id="Yaoqiang-_25">
+        <dc:Bounds height="60.0" width="120.0" x="1255.4015748031497" y="809.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1301.4" y="832.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_27" id="Yaoqiang-_27">
+        <dc:Bounds height="60.0" width="120.0" x="1265.4015748031497" y="917.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1311.4" y="940.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_31" id="Yaoqiang-_31">
+        <dc:Bounds height="60.0" width="120.0" x="754.1417322834646" y="915.0131233595802"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="800.14" y="937.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_37" id="Yaoqiang-_37">
+        <dc:Bounds height="60.0" width="120.0" x="916.8333333333333" y="918.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="962.83" y="940.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_38" id="Yaoqiang-_38">
+        <dc:Bounds height="60.0" width="120.0" x="756.1417322834646" y="1029.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="802.14" y="1051.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_42" id="Yaoqiang-_42">
+        <dc:Bounds height="60.0" width="120.0" x="1256.4015748031497" y="1020.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1302.4" y="1043.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_44" id="Yaoqiang-_44">
+        <dc:Bounds height="60.0" width="120.0" x="752.1417322834646" y="1143.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="798.14" y="1165.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_46" id="Yaoqiang-_46">
+        <dc:Bounds height="60.0" width="120.0" x="915.8333333333333" y="1142.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="961.83" y="1164.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_47" id="Yaoqiang-_47">
+        <dc:Bounds height="60.0" width="120.0" x="1263.4015748031497" y="1141.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1309.4" y="1164.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_88" id="Yaoqiang-_88">
+        <dc:Bounds height="60.0" width="120.0" x="916.8333333333333" y="1251.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="962.83" y="1273.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_90" id="Yaoqiang-_90">
+        <dc:Bounds height="60.0" width="120.0" x="754.1417322834646" y="1248.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="800.14" y="1270.37"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_91" id="Yaoqiang-_91">
+        <dc:Bounds height="60.0" width="120.0" x="1265.4015748031497" y="1250.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1311.4" y="1273.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_92" id="Yaoqiang-_92">
+        <dc:Bounds height="60.0" width="120.0" x="1091.0" y="1253.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1137.0" y="1275.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_119" id="Yaoqiang-_119">
+        <dc:Bounds height="60.0" width="120.0" x="1262.4015748031497" y="1396.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1308.4" y="1419.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_121" id="Yaoqiang-_121">
+        <dc:Bounds height="60.0" width="120.0" x="895.8333333333333" y="1397.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="941.83" y="1419.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_131" id="Yaoqiang-_131">
+        <dc:Bounds height="60.0" width="120.0" x="1091.0" y="1528.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1137.0" y="1550.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_132" id="Yaoqiang-_132">
+        <dc:Bounds height="60.0" width="120.0" x="1265.4015748031497" y="1525.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="1311.4" y="1548.06"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_137" id="Yaoqiang-_137">
+        <dc:Bounds height="60.0" width="120.0" x="916.8333333333333" y="1526.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="28.0" x="962.83" y="1548.69"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_89" id="Yaoqiang-_89" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="1527.0026246719162" y="906.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1545.0" y="934.83"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_96" id="Yaoqiang-_96" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="1906.9819609013775" y="976.882508341261"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1924.98" y="1004.88"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_117" id="Yaoqiang-_117">
+        <dc:Bounds height="32.0" width="32.0" x="2727.99491600055" y="1071.9152789057216"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="55.0" x="2716.49" y="1207.93"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_112" id="Yaoqiang-_112" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="2580.3917155074096" y="1056.703288553188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2598.39" y="1084.7"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_65" id="Yaoqiang-_65" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="2218.729658792651" y="1009.225721784777"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2236.73" y="1037.23"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_159" id="Yaoqiang-_159">
+        <di:waypoint x="1771.0" y="1143.0"/>
+        <di:waypoint x="1907.3825083412612" y="997.882508341261"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1835.99" y="1060.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_158" id="Yaoqiang-_158">
+        <di:waypoint x="1776.0" y="1007.0"/>
+        <di:waypoint x="1907.3825083412612" y="997.882508341261"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1838.24" y="992.35"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_157" id="Yaoqiang-_157">
+        <di:waypoint x="1780.0" y="859.0"/>
+        <di:waypoint x="1907.3825083412607" y="997.882508341261"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1840.57" y="918.92"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_156" id="Yaoqiang-_156">
+        <di:waypoint x="1568.6732283464567" y="927.8267716535433"/>
+        <di:waypoint x="1651.0" y="1143.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1607.0" y="1025.61"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_155" id="Yaoqiang-_155">
+        <di:waypoint x="1568.6732283464567" y="927.8267716535433"/>
+        <di:waypoint x="1656.0" y="1007.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1609.25" y="957.86"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_154" id="Yaoqiang-_154">
+        <di:waypoint x="1568.6732283464567" y="927.8267716535433"/>
+        <di:waypoint x="1660.0" y="859.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1611.58" y="884.02"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_153" id="Yaoqiang-_153">
+        <di:waypoint x="342.0" y="575.0882352941176"/>
+        <di:waypoint x="1454.0" y="684.0"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1108.03" y="565.45"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_152" id="Yaoqiang-_152">
+        <di:waypoint x="1385.0" y="1555.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1453.2" y="1232.16"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_151" id="Yaoqiang-_151">
+        <di:waypoint x="1382.0" y="1426.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1451.7" y="1167.66"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_150" id="Yaoqiang-_150">
+        <di:waypoint x="1385.0" y="1280.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1453.2" y="1094.66"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_58" id="Yaoqiang-_58">
+        <di:waypoint x="875.0" y="835.0131233595803"/>
+        <di:waypoint x="918.0" y="838.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="893.49" y="827.05"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_57" id="Yaoqiang-_57">
+        <di:waypoint x="704.0" y="828.6299212598426"/>
+        <di:waypoint x="755.0" y="835.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="726.76" y="821.93"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_53" id="Yaoqiang-_53">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="584.0" y="828.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="553.77" y="772.66"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_51" id="Yaoqiang-_51">
+        <di:waypoint x="876.0" y="720.0131233595802"/>
+        <di:waypoint x="1252.0" y="725.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1061.27" y="712.95"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_50" id="Yaoqiang-_50">
+        <di:waypoint x="705.0" y="722.6299212598426"/>
+        <di:waypoint x="756.0" y="720.0131233595802"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="727.76" y="711.94"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_149" id="Yaoqiang-_149">
+        <di:waypoint x="1383.0" y="1171.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1452.2" y="1040.16"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_148" id="Yaoqiang-_148">
+        <di:waypoint x="1376.0" y="1050.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1448.7" y="979.66"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_147" id="Yaoqiang-_147">
+        <di:waypoint x="1385.0" y="947.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1453.2" y="928.16"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_146" id="Yaoqiang-_146">
+        <di:waypoint x="1375.0" y="839.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1448.2" y="874.09"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_145" id="Yaoqiang-_145">
+        <di:waypoint x="1372.0" y="725.7007874015749"/>
+        <di:waypoint x="1527.3267716535433" y="927.8267716535433"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1446.7" y="817.09"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_144" id="Yaoqiang-_144">
+        <di:waypoint x="1016.0" y="1427.3333333333335"/>
+        <di:waypoint x="1262.0" y="1426.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1136.12" y="1417.5"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_143" id="Yaoqiang-_143">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="552.0" y="1138.0"/>
+        <di:waypoint x="917.0" y="1556.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="549.0" y="1307.78"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_142" id="Yaoqiang-_142">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="548.0" y="1078.0"/>
+        <di:waypoint x="896.0" y="1427.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="545.0" y="1236.78"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_141" id="Yaoqiang-_141">
+        <di:waypoint x="1211.0" y="1558.0"/>
+        <di:waypoint x="1265.0" y="1555.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1235.2" y="1547.41"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_140" id="Yaoqiang-_140">
+        <di:waypoint x="1037.0" y="1556.3333333333335"/>
+        <di:waypoint x="1091.0" y="1558.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1060.92" y="1547.61"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_49" id="Yaoqiang-_49">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="585.0" y="722.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="554.27" y="720.36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9" id="Yaoqiang-_9">
+        <di:waypoint x="326.0" y="1039.3333333333335"/>
+        <di:waypoint x="435.0" y="877.0"/>
+        <di:waypoint x="487.16666666666674" y="736.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="432.0" y="906.78"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_95" id="Yaoqiang-_95">
+        <di:waypoint x="1211.0" y="1283.0"/>
+        <di:waypoint x="1265.0" y="1280.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1235.2" y="1272.41"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_94" id="Yaoqiang-_94">
+        <di:waypoint x="1037.0" y="1281.3333333333335"/>
+        <di:waypoint x="1091.0" y="1283.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1060.92" y="1272.61"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_93" id="Yaoqiang-_93">
+        <di:waypoint x="874.0" y="1278.0131233595803"/>
+        <di:waypoint x="917.0" y="1281.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="892.49" y="1270.05"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20" id="Yaoqiang-_20">
+        <di:waypoint x="142.83333333333348" y="821.3333333333335"/>
+        <di:waypoint x="206.0" y="1039.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="171.17" y="920.94"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_170" id="Yaoqiang-_170">
+        <di:waypoint x="2260.725721784777" y="1030.2257217847769"/>
+        <di:waypoint x="2345.0" y="1156.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2299.95" y="1083.39"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="Yaoqiang-_18">
+        <di:waypoint x="142.83333333333348" y="821.3333333333335"/>
+        <di:waypoint x="209.0" y="922.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="172.67" y="862.28"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16" id="Yaoqiang-_16">
+        <di:waypoint x="142.83333333333348" y="821.3333333333335"/>
+        <di:waypoint x="205.0" y="776.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="171.0" y="789.28"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_79" id="Yaoqiang-_79">
+        <di:waypoint x="1036.0" y="1172.3333333333335"/>
+        <di:waypoint x="1263.0" y="1171.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1146.62" y="1162.5"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_78" id="Yaoqiang-_78">
+        <di:waypoint x="872.0" y="1173.0131233595803"/>
+        <di:waypoint x="916.0" y="1172.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="890.99" y="1163.02"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13" id="Yaoqiang-_13">
+        <di:waypoint x="142.83333333333348" y="821.3333333333335"/>
+        <di:waypoint x="222.0" y="575.0882352941176"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="179.43" y="688.59"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="Yaoqiang-_12">
+        <di:waypoint x="35.99826980264436" y="838.7352941176471"/>
+        <di:waypoint x="101.16666666666652" y="821.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="65.4" y="820.22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11" id="Yaoqiang-_11">
+        <di:waypoint x="325.0" y="776.3333333333335"/>
+        <di:waypoint x="487.16666666666674" y="736.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="403.17" y="746.94"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="Yaoqiang-_10">
+        <di:waypoint x="329.0" y="922.0"/>
+        <di:waypoint x="487.16666666666674" y="736.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="404.83" y="819.44"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_73" id="Yaoqiang-_73">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="551.0" y="959.0"/>
+        <di:waypoint x="752.0" y="1173.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="548.0" y="1034.62"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_72" id="Yaoqiang-_72">
+        <di:waypoint x="876.0" y="1059.0131233595803"/>
+        <di:waypoint x="1256.0" y="1050.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1063.27" y="1045.49"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_70" id="Yaoqiang-_70">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="552.0" y="1059.0"/>
+        <di:waypoint x="756.0" y="1059.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="549.0" y="978.61"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_169" id="Yaoqiang-_169">
+        <di:waypoint x="2260.725721784777" y="1030.2257217847769"/>
+        <di:waypoint x="2344.0" y="1058.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2299.36" y="1034.47"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_168" id="Yaoqiang-_168">
+        <di:waypoint x="2260.725721784777" y="1030.2257217847769"/>
+        <di:waypoint x="2344.0" y="948.0813648293965"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2299.43" y="979.58"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_103" id="Yaoqiang-_103">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="552.0" y="1021.0"/>
+        <di:waypoint x="754.0" y="1278.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="549.0" y="1087.12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_167" id="Yaoqiang-_167">
+        <di:waypoint x="2160.0" y="1122.9422572178478"/>
+        <di:waypoint x="2219.274278215223" y="1030.2257217847769"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2186.22" y="1066.53"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_166" id="Yaoqiang-_166">
+        <di:waypoint x="2165.0" y="960.6666666666667"/>
+        <di:waypoint x="2219.274278215223" y="1030.2257217847769"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2188.61" y="986.33"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_165" id="Yaoqiang-_165">
+        <di:waypoint x="1948.6174916587388" y="997.882508341261"/>
+        <di:waypoint x="2040.0" y="1122.9422572178478"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1991.35" y="1050.73"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_164" id="Yaoqiang-_164">
+        <di:waypoint x="1948.6174916587393" y="997.882508341261"/>
+        <di:waypoint x="2045.0" y="960.6666666666667"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1993.74" y="969.57"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_163" id="Yaoqiang-_163">
+        <di:waypoint x="2621.796711446812" y="1077.703288553188"/>
+        <di:waypoint x="2728.0053901757356" y="1087.9152789057216"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2672.19" y="1072.88"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_162" id="Yaoqiang-_162">
+        <di:waypoint x="2465.0" y="1156.0"/>
+        <di:waypoint x="2580.203288553188" y="1077.703288553188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2519.78" y="1107.39"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_161" id="Yaoqiang-_161">
+        <di:waypoint x="2464.0" y="1058.0"/>
+        <di:waypoint x="2580.203288553188" y="1077.703288553188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2519.2" y="1058.12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_160" id="Yaoqiang-_160">
+        <di:waypoint x="2464.0" y="948.0813648293965"/>
+        <di:waypoint x="2580.203288553188" y="1077.703288553188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="2519.26" y="1003.09"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_69" id="Yaoqiang-_69">
+        <di:waypoint x="1211.0" y="950.0"/>
+        <di:waypoint x="1265.0" y="947.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1235.2" y="939.41"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_68" id="Yaoqiang-_68">
+        <di:waypoint x="1037.0" y="948.3333333333335"/>
+        <di:waypoint x="1091.0" y="950.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1060.92" y="939.61"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_64" id="Yaoqiang-_64">
+        <di:waypoint x="874.0" y="945.0131233595803"/>
+        <di:waypoint x="917.0" y="948.3333333333335"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="892.49" y="937.05"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_63" id="Yaoqiang-_63">
+        <di:waypoint x="701.0" y="945.6299212598426"/>
+        <di:waypoint x="754.0" y="945.0131233595803"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="724.76" y="935.94"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_61" id="Yaoqiang-_61">
+        <di:waypoint x="528.8333333333333" y="736.6666666666667"/>
+        <di:waypoint x="581.0" y="945.6299212598426"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="552.27" y="831.16"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_60" id="Yaoqiang-_60">
+        <di:waypoint x="1038.0" y="838.3333333333335"/>
+        <di:waypoint x="1255.0" y="839.7007874015749"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="19.28" width="6.0" x="1143.62" y="829.26"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,517 @@
+{
+  "name": "satellite.xml",
+  "duration": 100.0,
+  "coefficients": {
+    "integrity": 0.0,
+    "flow": 0.0,
+    "cost": 1.0,
+    "fine": 0.0,
+    "uniform": 0.0,
+    "interrupt": 0.0,
+    "time": 0.0
+  },
+  "resources": [
+    {
+      "id": "RS_1",
+      "template_id": "46cb3770-9101-11e9-b24b-0242ac110002",
+      "name": "УДМ",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "6.0"
+    },
+    {
+      "id": "RS_2",
+      "template_id": "46cb5282-9101-11e9-b24b-0242ac110002",
+      "name": "ДУОС",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "16.0"
+    },
+    {
+      "id": "RS_3",
+      "template_id": "46cb5d7c-9101-11e9-b24b-0242ac110002",
+      "name": "УДМ и ПОЗ",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "6.0"
+    },
+    {
+      "id": "RS_4",
+      "template_id": "46cb65d8-9101-11e9-b24b-0242ac110002",
+      "name": "ДУОС и ПОЗ",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "16.0"
+    },
+    {
+      "id": "RS_5",
+      "template_id": "46cbd702-9101-11e9-b24b-0242ac110002",
+      "name": "УДМ и ОЗД",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "6.0"
+    },
+    {
+      "id": "RS_6",
+      "template_id": "46cbe800-9101-11e9-b24b-0242ac110002",
+      "name": "ДУОС и ОЗД",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "16.0"
+    },
+    {
+      "id": "RS_7",
+      "template_id": "46cc5560-9101-11e9-b24b-0242ac110002",
+      "name": "УДМ и ОЗД",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "8.0"
+    },
+    {
+      "id": "RS_8",
+      "template_id": "46cc6ae6-9101-11e9-b24b-0242ac110002",
+      "name": "КА",
+      "capacity": "1",
+      "power": "1.0",
+      "price": "8.0"
+    }
+  ],
+  "operations": [
+    {
+      "id": "_3",
+      "name": "S1",
+      "template_id": "46cd594c-9101-11e9-b24b-0242ac110002",
+      "title": "S1",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "120.0",
+      "y": "270.0",
+      "start": 30,
+      "stop": 59,
+      "resource": "RS_1",
+      "intensity": 1.0
+    },
+    {
+      "id": "_7",
+      "name": "S5",
+      "template_id": "46ce3e20-9101-11e9-b24b-0242ac110002",
+      "title": "S5",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "280.0",
+      "y": "160.0",
+      "start": 60,
+      "stop": 89,
+      "resource": "RS_1",
+      "intensity": 1.0
+    },
+    {
+      "id": "_8",
+      "name": "S6",
+      "template_id": "46ce5d92-9101-11e9-b24b-0242ac110002",
+      "title": "S6",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "280.0",
+      "y": "600.0"
+    },
+    {
+      "id": "_9",
+      "name": "S7",
+      "template_id": "46ce86f0-9101-11e9-b24b-0242ac110002",
+      "title": "S7",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "890.0",
+      "y": "310.0"
+    },
+    {
+      "id": "_10",
+      "name": "S8",
+      "template_id": "46cea360-9101-11e9-b24b-0242ac110002",
+      "title": "S8",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "490.0",
+      "y": "490.0"
+    },
+    {
+      "id": "_11",
+      "name": "S9",
+      "template_id": "46ced394-9101-11e9-b24b-0242ac110002",
+      "title": "S9",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "730.0",
+      "y": "590.0"
+    },
+    {
+      "id": "_12",
+      "name": "S10",
+      "template_id": "46cf07d8-9101-11e9-b24b-0242ac110002",
+      "title": "S10",
+      "volume": 100.0,
+      "stream": 10.0,
+      "x": "890.0",
+      "y": "240.0"
+    },
+    {
+      "id": "_13",
+      "name": "S11",
+      "template_id": "46d12cca-9101-11e9-b24b-0242ac110002",
+      "title": "S11",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "890.0",
+      "y": "380.0"
+    },
+    {
+      "id": "_14",
+      "name": "S12",
+      "template_id": "46d4fa1c-9101-11e9-b24b-0242ac110002",
+      "title": "S12",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "1060.0",
+      "y": "310.0"
+    },
+    {
+      "id": "_15",
+      "name": "S13",
+      "template_id": "46d6c478-9101-11e9-b24b-0242ac110002",
+      "title": "S13",
+      "volume": 100.0,
+      "stream": 30.0,
+      "x": "20.0",
+      "y": "380.0"
+    },
+    {
+      "id": "_40",
+      "name": "S13-S9",
+      "template_id": "46d6fc68-9101-11e9-b24b-0242ac110002",
+      "title": "S13-S9",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "310.0",
+      "y": "490.0"
+    },
+    {
+      "id": "_63",
+      "name": "S13-S10",
+      "template_id": "46d7df2a-9101-11e9-b24b-0242ac110002",
+      "title": "S13-S10",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "310.0",
+      "y": "270.0"
+    },
+    {
+      "id": "_67",
+      "name": "S8-S10",
+      "template_id": "46d8f888-9101-11e9-b24b-0242ac110002",
+      "title": "S8-S10",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "730.0",
+      "y": "390.0"
+    },
+    {
+      "id": "_74",
+      "name": "S5-S10",
+      "template_id": "46d9b26e-9101-11e9-b24b-0242ac110002",
+      "title": "S5-S10",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "600.0",
+      "y": "160.0"
+    },
+    {
+      "id": "_76",
+      "name": "S8-S11",
+      "template_id": "46da41c0-9101-11e9-b24b-0242ac110002",
+      "title": "S8-S11",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "730.0",
+      "y": "490.0"
+    },
+    {
+      "id": "_46",
+      "name": "S13-S3-S4",
+      "template_id": "46dac140-9101-11e9-b24b-0242ac110002",
+      "title": "S13-S3-S4",
+      "volume": 1.0,
+      "stream": 1.0,
+      "x": "210.0",
+      "y": "380.0"
+    }
+  ],
+  "graph": [
+    {
+      "source": "_3",
+      "target": "_7",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_4",
+      "target": "_8",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_5",
+      "target": "_9",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_6",
+      "target": "_10",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_7",
+      "target": "_74",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_8",
+      "target": "_11",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_9",
+      "target": "_14",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_10",
+      "target": "_67",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_10",
+      "target": "_76",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_11",
+      "target": "_13",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_12",
+      "target": "_14",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_13",
+      "target": "_14",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_15",
+      "target": "_46",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_15",
+      "target": "_4",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_15",
+      "target": "_3",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_40",
+      "target": "_11",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_63",
+      "target": "_74",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_67",
+      "target": "_12",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_74",
+      "target": "_12",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_76",
+      "target": "_13",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_46",
+      "target": "_6",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_46",
+      "target": "_5",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_46",
+      "target": "_40",
+      "fwd": "1",
+      "rev": "1"
+    },
+    {
+      "source": "_46",
+      "target": "_63",
+      "fwd": "1",
+      "rev": "1"
+    }
+  ],
+  "productivity": [
+    {
+      "resource": "RS_1",
+      "max": [
+        {
+          "job_id": "_3",
+          "value": 1.0
+        },
+        {
+          "job_id": "_7",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_2",
+      "max": [
+        {
+          "job_id": "_4",
+          "value": 1.0
+        },
+        {
+          "job_id": "_8",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_3",
+      "max": [
+        {
+          "job_id": "_5",
+          "value": 1.0
+        },
+        {
+          "job_id": "_6",
+          "value": 1.0
+        },
+        {
+          "job_id": "_9",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_4",
+      "max": [
+        {
+          "job_id": "_6",
+          "value": 1.0
+        },
+        {
+          "job_id": "_10",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_5",
+      "max": [
+        {
+          "job_id": "_11",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_6",
+      "max": [
+        {
+          "job_id": "_12",
+          "value": 1.0
+        },
+        {
+          "job_id": "_13",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_7",
+      "max": [
+        {
+          "job_id": "_14",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "resource": "RS_8",
+      "max": [
+        {
+          "job_id": "_15",
+          "value": 1.0
+        },
+        {
+          "job_id": "_40",
+          "value": 1.0
+        },
+        {
+          "job_id": "_63",
+          "value": 1.0
+        },
+        {
+          "job_id": "_67",
+          "value": 1.0
+        },
+        {
+          "job_id": "_74",
+          "value": 1.0
+        },
+        {
+          "job_id": "_76",
+          "value": 1.0
+        },
+        {
+          "job_id": "_46",
+          "value": 1.0
+        }
+      ]
+    }
+  ]
+}

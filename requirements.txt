@@ -1,0 +1,8 @@
+pyyaml
+networkx
+lxml
+pulp
+click
+plotly
+numpy
+pandas
